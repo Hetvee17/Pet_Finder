@@ -16,10 +16,11 @@
   align-items: center;
   height: 80px;
   max-width: 1500px;
+  color: #fff;
 }
 
 .navbar-logo {
-  color: #fff;
+  color: #ffff;
   justify-self: start;
   margin-left: 20px;
   cursor: pointer;
@@ -29,14 +30,15 @@
   align-items: center;
 }
 
-.fa-typo3 {
+.fa-paw {
   margin-left: 0.5rem;
   font-size: 1.8rem;
+  color: #fff;
 }
 
 .nav-menu {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(6, auto);
   grid-gap: 10px;
   list-style: none;
   text-align: center;
@@ -50,7 +52,7 @@
 }
 
 .nav-links {
-  color: #fff;
+  color: #ffff;
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -109,7 +111,7 @@
 
   .nav-links:hover {
     background-color: #fff;
-    color: #242424;
+    color: hsl(0, 0%, 14%);
     border-radius: 0;
   }
 
@@ -130,7 +132,7 @@
     cursor: pointer;
   }
 
-  .fa-times {
+  .fa-window-close {
     color: #fff;
     font-size: 2rem;
   }
