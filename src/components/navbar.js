@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./Button";
 import "./Navbar.css";
-// import logo from '/images/logo.png';
+import logo from "./logo.png";
+
+console.log(logo);
 function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
@@ -24,12 +26,7 @@ function Navbar() {
       <nav className="navbar">
         <div className="navbar-container">
           <Link to="/" classname="navbar-logo" onClick={closeMobileMenu}>
-            {/* hello
-            <image
-              src={process.env.PUBLIC_URL + "/images/logo.png"}
-              alt="pet"
-            /> */}
-            <img src="./logo.png" alt="Petfinder"></img>
+            <img src={logo} alt="Petfinder" className="image-logo"></img>
             <i class="fas fa-paw"></i>
           </Link>
           <div className="menu-icon" onClick={handleClick}>
