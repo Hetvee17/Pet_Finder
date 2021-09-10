@@ -24,7 +24,7 @@ function Footer() {
             />
             <Button buttonStyle="btn--outline">Subscribe</Button>
           </form>
-                  <p classroom="footer-subscription-text">Hetvee sakaria - CE000<br />
+                  <p classroom="footer-subscription-text">Hetvee sakaria - CE055<br />
                   Ruchita Oza - CE092
                   </p>
                   

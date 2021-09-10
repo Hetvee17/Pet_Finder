@@ -16,4 +16,4 @@ function CardItem() {
     )
 }
 
-export default Card
+export default CardItem
