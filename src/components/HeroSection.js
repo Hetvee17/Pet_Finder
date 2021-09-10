@@ -1,9 +1,9 @@
 import React from "react";
 import "./HeroSection.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 function HeroSection() {
   return (
-    <div className="hero-image parallax">
-      {/* <img src="https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjExMjU4fQ&auto=format&fit=crop&w=1050&q=80" /> */}
+    <div className="hero-container">
       <div className="hero-text w-50">
         <div class="input-group input-group-md " id="input-group">
           <input
