@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./Button";
-import "./navbar.css";
-import logo from "./logo.png";
+import "./Navbar.css";
+import logo from "../images/logo.png";
 
 console.log(logo);
 function Navbar() {
@@ -39,6 +39,16 @@ function Navbar() {
               </Link>
             </li>
             <li clasName="nav-item">
+              <Link
+                to="/UserProfile"
+                className="nav-links"
+                onClick={closeMobileMenu}
+              >
+                User Profile
+              </Link>
+            </li>
+
+            <li clasName="nav-item">
               <Link to="/Dogs" className="nav-links" onClick={closeMobileMenu}>
                 Dogs
               </Link>
@@ -46,15 +56,6 @@ function Navbar() {
             <li clasName="nav-item">
               <Link to="/Cats" className="nav-links" onClick={closeMobileMenu}>
                 Cats
-              </Link>
-            </li>
-            <li clasName="nav-item">
-              <Link
-                to="/UserProfile"
-                classname="nav-links"
-                onClick={closeMobileMenu}
-              >
-                User-Profile
               </Link>
             </li>
             <li clasName="nav-item">
@@ -75,9 +76,14 @@ function Navbar() {
                 Adopted
               </Link>
             </li>
+            <li>
+              {button && (
+                <Button buttonStyle="btn--outline">
+                  <Link to="Signup">SignUp</Link>
+                </Button>
+              )}
+            </li>
           </ul>
-            {button && <Button buttonStyle="btn--outline"><Link to="Signup">SignUp</Link></Button>}
-
         </div>
       </nav>
     </>
