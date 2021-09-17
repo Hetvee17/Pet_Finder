@@ -7,7 +7,7 @@ function Home() {
   return (
     <>
       <HeroSection />
-       <Cards /> 
+      <Cards />
     </>
   );
 }
