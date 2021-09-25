@@ -1,20 +1,72 @@
 import "./Signup.css";
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Social from "../Social.js";
 
 function Signup() {
+  const History = useHistory();
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  let name, value;
+  const handleInputs = (e) => {
+    console.log(e);
+    name = e.target.name;
+    value = e.target.value;
+    setUser({ ...user, [name]: value });
+  };
+
   const signUpButton = document.getElementById("signUp");
-  const signInButton = document.getElementById("signIn");
+  const signInButton = document.getElementById("signIn ");
   const container = document.getElementById("container");
+
+  const PostData = async (e) => {
+    e.preventDefault();
+    const { name, email, password } = user;
+    const res = await fetch("/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+      }),
+    });
+    const data = await res.json();
+    if (data.status === 422 || !data) {
+      window.alert("Invalid registration");
+      console.error("Invalid registration");
+    } else {
+      window.alert("Registration successful");
+      console.log("Registration successful");
+      History.push("/");
+    }
+  };
 
   if (signUpButton) {
     signUpButton.addEventListener("click", () => {
       container.classList.add("right-panel-active");
     });
-
+    if (signInButton) {
+      signInButton.addEventListener("click", () => {
+        container.classList.remove("right-panel-active");
+      });
+    }
+  }
+  if (signInButton) {
     signInButton.addEventListener("click", () => {
       container.classList.remove("right-panel-active");
     });
+    if (signUpButton)
+      signUpButton.addEventListener("click", () => {
+        container.classList.add("right-panel-active");
+      });
+  }
+
+  if (signInButton) {
+    console.log("signIn");
   }
   return (
     <>
@@ -22,29 +74,43 @@ function Signup() {
       <section className="Signup">
         <div className="container" id="container">
           <div className="form-container sign-up-container">
-            <form action="#" className="signup">
+            <form method="POST" className="signup">
               <h1 className="signup">Create Account</h1>
               <Social />
               <span className="signup">or use your email for registration</span>
               <input
                 type="text"
-                id="username"
+                name="name"
+                id="name"
                 className="signup"
                 placeholder="Name"
+                autocomplete="off"
+                value={user.name}
+                onChange={handleInputs}
               />
               <input
                 type="email"
+                name="email"
                 id="email"
                 className="signup"
                 placeholder="Email"
+                autocomplete="off"
+                value={user.email}
+                onChange={handleInputs}
               />
               <input
+                name="password"
                 type="password"
                 id="password"
                 className="signup"
                 placeholder="Password"
+                autocomplete="off"
+                value={user.password}
+                onChange={handleInputs}
               />
-              <button className="signup">Sign Up</button>
+              <button id="signup" onClick={PostData} className="signup">
+                Sign Up
+              </button>
             </form>
           </div>
           <div className="form-container sign-in-container">
