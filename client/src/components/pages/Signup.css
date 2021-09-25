@@ -1,18 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
-Signup {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjExMjU4fQ&auto=format&fit=crop&w=1050&q=80")
-      center center/cover no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-family: "Montserrat", sans-serif;
-  height: 100vh;
-  margin: -20px 0 50px;
-}
-
 h1.signup {
   font-weight: bold;
   margin: 0;

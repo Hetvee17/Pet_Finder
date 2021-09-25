@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "./Button.js";
 import "./Footer.css";
-
+import Social from './Social';
 function Footer() {
   return (
     <div className="footer-container">
@@ -28,13 +28,9 @@ function Footer() {
             Hetvee sakaria - CE055
             <br />
             Ruchita Oza - CE092
+          <Social/>
           </p>
-
-          <div className="footer-social -subscription-heading">
-            <i class="fab fa-instagram"></i> &nbsp;&nbsp;
-            <i class="fab fa-facebook"></i> &nbsp;&nbsp;
-            <i class="fab fa-twitter"></i>
-          </div>
+          
         </div>
       </section>
     </div>
