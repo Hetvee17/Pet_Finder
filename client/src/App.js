@@ -8,7 +8,7 @@ import Login from "./components/pages/Login";
 import ErrorPage from "./components/pages/ErrorPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-
+import UserProf from "./components/pages/UserProf";
 function App() {
   return (
     <>
@@ -18,6 +18,7 @@ function App() {
           <Route path="/" exact="" component={Home} />
           <Route path="/Signup" component={Signup} />
           <Route path="/login" component={Login} />
+          <Route path="/UserProfile" component={UserProf} />
           <Route component={ErrorPage} />
         </Switch>
         <Footer />

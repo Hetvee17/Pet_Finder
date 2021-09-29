@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Signup() {
   const History = useHistory();
+
   // give sign up data to state
   const [user, setUser] = useState({
     name: "",
