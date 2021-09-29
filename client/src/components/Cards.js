@@ -18,7 +18,7 @@ function Cards() {
           <button  href="#" class="btn btn-sm mx-2 detailsBtn">Details</button>
          
       
-          <a  class ="btn btn-sm btn-outline-primary mx-2 btn-adopt" value="{{this._id}}" href="#">Adopt</a>
+          <a  class ="btn btn-sm btn-outline-primary mx-2 btn-adopt" value="{{this._id}}" href="#adopt">Adopt</a>
           </div>
         </div>
       </div>

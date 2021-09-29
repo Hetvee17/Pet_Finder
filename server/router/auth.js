@@ -24,7 +24,7 @@ router.post("/register", async (req, res) => {
     if (userExist) {
       return res.status(422).json({ error: "Email already exists" });
     } else if (password != password) {
-      return res.status(404).json({ error: "Password is incorrect" });
+      return res.status(422).json({ error: "Password is incorrect" });
     }
 
     const user = new User({ name, email, password });
@@ -58,7 +58,7 @@ router.post("/signin", async (req, res) => {
       if (password != userLogin.password) {
         res.json({ success: false, message: "passwords do not match" });
       } else {
-        res.status(404).json({
+        res.status(202).json({
           error: "signed successfully",
         });
       }

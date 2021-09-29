@@ -1,10 +1,12 @@
 import "./Signup.css";
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import Social from "../Social.js";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function Signup() {
+export default function Signup() {
   const History = useHistory();
+  // give sign up data to state
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -17,10 +19,6 @@ function Signup() {
     value = e.target.value;
     setUser({ ...user, [name]: value });
   };
-
-  const signUpButton = document.getElementById("signUp");
-  const signInButton = document.getElementById("signIn ");
-  const container = document.getElementById("container");
 
   const PostData = async (e) => {
     e.preventDefault();
@@ -35,132 +33,108 @@ function Signup() {
       }),
     });
     const data = await res.json();
-    if (data.status === 422 || !data) {
+    if (res.status === 422 || !data) {
       window.alert("Invalid registration");
       console.error("Invalid registration");
-    } else {
+    } else if (res.status === 201) {
       window.alert("Registration successful");
       console.log("Registration successful");
-      History.push("/");
+      History.push("/login");
+    } else {
+      window.alert("unknown error");
+      console.log("unknown error");
     }
   };
 
-  if (signUpButton) {
-    signUpButton.addEventListener("click", () => {
-      container.classList.add("right-panel-active");
-    });
-    if (signInButton) {
-      signInButton.addEventListener("click", () => {
-        container.classList.remove("right-panel-active");
-      });
-    }
-  }
-  if (signInButton) {
-    signInButton.addEventListener("click", () => {
-      container.classList.remove("right-panel-active");
-    });
-    if (signUpButton)
-      signUpButton.addEventListener("click", () => {
-        container.classList.add("right-panel-active");
-      });
-  }
-
-  if (signInButton) {
-    console.log("signIn");
-  }
   return (
-    <>
-      <br />
-      <section className="Signup">
-        <div className="container" id="container">
-          <div className="form-container sign-up-container">
-            <form method="POST" className="signup">
-              <h1 className="signup">Create Account</h1>
-              <Social />
-              <span className="signup">or use your email for registration</span>
+    <div className="container-fluid signbg">
+      <div className="row justify-content-center">
+        <div className="col-xs-12 col-sm-6 col-md-3">
+          <form className="signform-container" action="/signup" method="POST">
+            <h4 className="text-white text-center"> Signup</h4>
+            <hr />
+            {/* {{#if msg}}
+                    <div className="alert alert-warning" role="alert">
+  Username or email already exist
+</div>
+                     {{/if}} */}
+            <div className="text-white form-group">
+              <label for="name" className="white">
+                Name <sup>*</sup>
+              </label>
               <input
                 type="text"
-                name="name"
+                className="form-control"
                 id="name"
-                className="signup"
-                placeholder="Name"
-                autocomplete="off"
+                name="name"
+                placeholder="name"
+                autoComplete="off"
                 value={user.name}
                 onChange={handleInputs}
+                required
               />
+              <span className="error_form" id="uname_error_message"></span>
+            </div>
+
+            <div className="text-white form-group">
+              <label for="email">
+                Email <sup>*</sup>
+              </label>
               <input
                 type="email"
+                className="form-control"
                 name="email"
                 id="email"
-                className="signup"
                 placeholder="Email"
-                autocomplete="off"
+                autoComplete="off"
                 value={user.email}
                 onChange={handleInputs}
+                required
               />
+              <span className="error_form" id="email_error_message"></span>
+            </div>
+            <div className="text-white form-group">
+              <label for="password">
+                Password <sup>*</sup>
+              </label>
               <input
-                name="password"
                 type="password"
+                className="form-control"
                 id="password"
-                className="signup"
+                name="password"
                 placeholder="Password"
-                autocomplete="off"
+                autoComplete="off"
                 value={user.password}
                 onChange={handleInputs}
+                required
               />
-              <button id="signup" onClick={PostData} className="signup">
-                Sign Up
-              </button>
-            </form>
-          </div>
-          <div className="form-container sign-in-container">
-            <form action="#" className="signup">
-              <h1 className="signup">Sign in</h1>
-              <Social />
-              <span className="signup">or use your account</span>
-              <input
-                type="email"
-                id="email"
-                className="signup"
-                placeholder="Email"
-              />
-              <input
-                type="password"
-                id="password"
-                className="signup"
-                placeholder="Password"
-              />
-              <button className="signup">Sign In</button>
-            </form>
-          </div>
-          <div className="overlay-container">
-            <div className="overlay">
-              <div className="overlay-panel overlay-left">
-                <h1 className="signup">Welcome Back!</h1>
-                <p className="signup">
-                  To keep connected with us please login with your personal info
-                </p>
-                <button className="signup ghost" id="signIn">
-                  Sign In
-                </button>
-              </div>
-              <div className="overlay-panel overlay-right">
-                <h1 className="signup">Hello, Friend!</h1>
-                <p className="signup">
-                  Enter your personal details and start journey with to find
-                  your loved pet
-                </p>
-                <button className="signup ghost" id="signUp">
-                  Sign Up
-                </button>
-              </div>
+              <span
+                className="text-white error_form"
+                id="password_error_message"
+              ></span>
             </div>
-          </div>
+            <button
+              type="submit"
+              onClick={PostData}
+              id="btn"
+              className=" btn form-control"
+            >
+              Submit
+            </button>
+            <p className="para" id="signup-link">
+              Already have an account?{" "}
+              <Link
+                style={{ color: "white", textDecoration: "underline" }}
+                id="signupLink"
+                to="/login"
+              >
+                Login
+              </Link>{" "}
+              here
+            </p>
+          </form>
         </div>
-        <br />
-      </section>
-    </>
+      </div>
+    </div>
   );
 }
-
-export default Signup;
