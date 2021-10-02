@@ -1,10 +1,52 @@
 import "../modernForm.css";
 // import { Link } from "react-router-dom";
-import React from "react";
-//import { useHistory } from "react-router-dom";
+import React, { useEffect, useCallback, useState } from "react";
+import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function UserProf() {
+  const History = useHistory();
+  const [userData, setUserData] = useState();
+  const callUserProf = useCallback(async () => {
+    try {
+      const res = await fetch(
+        "/UserProf",
+        {
+          method: "GET",
+          header: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        },
+        []
+      );
+
+      const data = await res.json();
+      console.log(data);
+      setUserData(data);
+      if (!res.status === 200) {
+        const error = new Error(res.error);
+        throw error;
+      }
+      //  History.push("/UserProfile");
+    } catch (err) {
+      console.log(err);
+      History.push("/Login");
+    }
+  });
+  useEffect(() => {
+    callUserProf();
+  }, []); //we cant use async fun in useEffect so defined it outside
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+      /* you can also use 'auto' behaviour
+         in place of 'smooth' */
+    });
+  };
   return (
     <>
       <div class="container-fluid" id="wrapper-container">
@@ -15,51 +57,53 @@ export default function UserProf() {
             <div class="col-12 col-lg-12 col-xl-12 col-sm-12 col-md-12">
               <div class="jumbotron-fluid">
                 {/* user profile image */}
-                <div
-                  className="prof-image card-img-top"
-                  style={{
-                    backgroundImage:
-                      'url("https://cdn.pixabay.com/photo/2019/08/19/07/45/pets-4415649__340.jpg ")',
-                  }}
-                >
-                  <div class="profile-tab text-center">
-                    <p>
-                      <i class="fa fa-envelope mr-1 email" />
-                      userprof email
-                    </p>
-                    <p>
-                      <i class="fa fa-user mr-1 username" />
-                      userprof.username
-                    </p>
-                    <p>
-                      <a
-                        data-toggle="modal"
-                        data-target="#exampleModal"
-                        href="#modal"
-                        class="text-white"
-                        data-toggle="tooltip"
-                        data-placement="bottom"
-                        title="Edit profile"
-                      >
-                        <i class="fa fa-pencil text-white" /> Edit
-                      </a>
-                    </p>
-                    <p class="mb-5">
-                      <a
-                        data-toggle="modal"
-                        data-target="#exampleModalUpload"
-                        href="#Upload"
-                        class="text-white mb-5"
-                        data-toggle="tooltip"
-                        data-placement="bottom"
-                        title="Change profile"
-                      >
-                        <i class="fa fa-upload mr-1 text-white"></i>Upload
-                      </a>
-                    </p>
+                <form method="GET">
+                  <div
+                    className="prof-image card-img-top"
+                    style={{
+                      backgroundImage:
+                        'url("https://cdn.pixabay.com/photo/2019/08/19/07/45/pets-4415649__340.jpg ")',
+                    }}
+                  >
+                    <div class="profile-tab text-center">
+                      <p>
+                        <i class="fa fa-envelope mr-1 email" />
+                        &nbsp; {userData.email} 
+                      </p>
+                      <p>
+                        <i class="fa fa-user mr-1 username" />
+                        &nbsp; {userData.name}
+                      </p>
+                      <p>
+                        <a
+                          data-toggle="modal"
+                          data-target="#exampleModal"
+                          href="#modal"
+                          class="text-white"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Edit profile"
+                        >
+                          <i class="fa fa-pencil text-white" /> Edit
+                        </a>
+                      </p>
+                      <p class="mb-5">
+                        <a
+                          data-toggle="modal"
+                          data-target="#exampleModalUpload"
+                          href="#Upload"
+                          class="text-white mb-5"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Change profile"
+                        >
+                          <i class="fa fa-upload mr-1 text-white"></i>Upload
+                        </a>
+                      </p>
+                    </div>
+                    {/**Profile tab */}
                   </div>
-                  {/**Profile tab */}
-                </div>
+                </form>
                 {/**Profile pic*/}
               </div>
             </div>
@@ -212,6 +256,7 @@ export default function UserProf() {
           <button
             class="btn btn-primary text-white mt-5 py-2 ml-2"
             id="goToTop"
+            onClick={scrollToTop}
           >
             Go to top
           </button>
@@ -288,10 +333,18 @@ export default function UserProf() {
                 </div>
               </form>
             </div>
-            
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="updateInfo">Update</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="updateInfo">
+                Update
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
