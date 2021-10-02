@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("../db/conn");
 const User = require("../models/userSchema");
-
+const authenticate = require("../middleware/authenticate");
 router.get("/", (req, res) => {
   res.send("Hello from server router");
 });
@@ -48,13 +48,12 @@ router.post("/signin", async (req, res) => {
     }
     const userLogin = await User.findOne({ email: email });
     if (userLogin) {
-      
-        token = await userLogin.generateAuthToken();
-        console.log(token);
-        res.cookie("jwtoken", token, {
-          expires: new Date(Date.now() + 172800000),
-          httpOnly: true,
-        });
+      token = await userLogin.generateAuthToken();
+      console.log(token);
+      res.cookie("jwtoken", token, {
+        expires: new Date(Date.now() + 172800000),
+        httpOnly: true,
+      });
       if (password != userLogin.password) {
         res.json({ success: false, message: "passwords do not match" });
       } else {
@@ -70,4 +69,11 @@ router.post("/signin", async (req, res) => {
     res.status(500).json({ error: "user signin failed" });
   }
 });
+
+router.get("/UserProf", authenticate, (req, res) => {
+  console.log("hello from about");
+  //console.log(req.rootUser);
+  res.send(req.rootUser);
+});
+
 module.exports = router;
