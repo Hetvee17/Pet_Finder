@@ -1,10 +1,15 @@
 import "../../Signup.css";
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { UserContext } from '../../../App.js'
+
 
 export default function Login() {
+
+  const { state, dispatch } = useContext(UserContext);
+  
   const History = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +29,7 @@ export default function Login() {
       window.alert("Invalid Credentials");
       console.log("Invalid Credentials");
     } else {
+      dispatch({type:'USER',payload:true})
       window.alert("Login successfully");
       console.log("successfull");
       History.push("/");

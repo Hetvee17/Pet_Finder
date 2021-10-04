@@ -54,8 +54,10 @@ router.post("/signin", async (req, res) => {
         expires: new Date(Date.now() + 172800000),
         httpOnly: true,
       });
+      console.log(password);
+      console.log(userLogin.password)
       if (password != userLogin.password) {
-        res.json({ success: false, message: "passwords do not match" });
+        res.status(404).json({ success: false, message: "passwords do not match" });
       } else {
         res.status(202).json({
           error: "signed successfully",
@@ -76,4 +78,9 @@ router.get("/UserProf", authenticate, (req, res) => {
   res.send(req.rootUser);
 });
 
+router.get("/logout", (req, res) => {
+  console.log("hello from logout");
+  res.clearCookie("jwtoken", { path: "/" });
+  res.status(200).send("user logged out");
+});
 module.exports = router;

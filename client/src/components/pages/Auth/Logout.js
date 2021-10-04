@@ -1,9 +1,35 @@
 import "../../Signup.css";
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link, useHistory } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { UserContext } from "../../../App.js";
 
 export default function Logout() {
+  const { state, dispatch } = useContext(UserContext);
+
+  //promises
+  const history = useHistory();
+  useEffect(() => {
+    fetch("/logout", {
+      method: "GET",
+      header: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
+      .then((res) => {
+        dispatch({ type: "USER", payload: false });
+        //history.push("/login", { replace: true });
+        if (res.status != 200) {
+          const error = new Error(res.error);
+          throw error;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
   return (
     <div className="signcontainer-fluid signbg">
       <div className="row justify-content-center">
