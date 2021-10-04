@@ -1,13 +1,19 @@
 import "../modernForm.css";
 // import { Link } from "react-router-dom";
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function UserProf() {
   const History = useHistory();
-  const [userData, setUserData] = useState();
-  const callUserProf = useCallback(async () => {
+  const [userData, setUserData] = useState(
+    {
+      email: "notDefind",
+      name:"notDefind"
+    }
+  );
+
+  const callUserProf = async () => {
     try {
       const res = await fetch(
         "/UserProf",
@@ -25,16 +31,16 @@ export default function UserProf() {
       const data = await res.json();
       console.log(data);
       setUserData(data);
-      if (!res.status === 200) {
+      if (!res.status === 200 || !data) {
         const error = new Error(res.error);
         throw error;
       }
       //  History.push("/UserProfile");
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
       History.push("/Login");
     }
-  });
+  };
   useEffect(() => {
     callUserProf();
   }, []); //we cant use async fun in useEffect so defined it outside
@@ -68,11 +74,13 @@ export default function UserProf() {
                     <div class="profile-tab text-center">
                       <p>
                         <i class="fa fa-envelope mr-1 email" />
-                        &nbsp; {userData.email} 
+                        &nbsp;
+                        {userData.email}
                       </p>
                       <p>
                         <i class="fa fa-user mr-1 username" />
-                        &nbsp; {userData.name}
+                        &nbsp;
+                        {userData.name}
                       </p>
                       <p>
                         <a

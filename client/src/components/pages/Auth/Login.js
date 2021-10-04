@@ -1,4 +1,4 @@
-import "./Signup.css";
+import "../../Signup.css";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -31,7 +31,7 @@ export default function Login() {
   };
   return (
     <div className="signcontainer-fluid signbg">
-      <div className="row justify-content-center">
+      <div className="row justify-content-center text-white">
         <div className="col-xs-12 col-sm-6 col-md-3">
           <form className="signform-container" method="POST">
             <h4 className="text-center"> Login</h4>

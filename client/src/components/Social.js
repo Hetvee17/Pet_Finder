@@ -1,5 +1,4 @@
 import React from "react";
-import "./pages/Signup.css";
 
 function Social() {
   return (

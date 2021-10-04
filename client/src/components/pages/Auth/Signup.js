@@ -1,4 +1,4 @@
-import "./Signup.css";
+import "../../Signup.css";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -48,17 +48,12 @@ export default function Signup() {
   };
 
   return (
-    <div className="container-fluid signbg">
-      <div className="row justify-content-center">
+    <div className="signupcontainer-fluid signbg">
+      <div className="row justify-content-center text-white">
         <div className="col-xs-12 col-sm-6 col-md-3">
           <form className="signform-container" action="/signup" method="POST">
             <h4 className="text-white text-center"> Signup</h4>
             <hr />
-            {/* {{#if msg}}
-                    <div className="alert alert-warning" role="alert">
-  Username or email already exist
-</div>
-                     {{/if}} */}
             <div className="text-white form-group">
               <label for="name" className="white">
                 Name <sup>*</sup>
@@ -92,7 +87,6 @@ export default function Signup() {
                 onChange={handleInputs}
                 required
               />
-              <span className="error_form" id="email_error_message"></span>
             </div>
             <div className="text-white form-group">
               <label for="password">
@@ -109,10 +103,6 @@ export default function Signup() {
                 onChange={handleInputs}
                 required
               />
-              <span
-                className="text-white error_form"
-                id="password_error_message"
-              ></span>
             </div>
             <button
               type="submit"
