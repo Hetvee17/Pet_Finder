@@ -7,13 +7,12 @@ require("./db/conn");
 
 dotenv.config({ path: "./config.env" });
 
-const User = require("./models/userSchema");
-
 app.use(express.json());
 app.use(cookieParser());
 
 //linked router file and used middleware
 app.use(require("./router/auth"));
+app.use(require("./router/pet"));
 
 app.get("/contact", (req, res) => {
   //res.cookie("test", ruchi);

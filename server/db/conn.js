@@ -16,4 +16,4 @@ mongoose
   .then(() => {
     console.log("Connect success!");
   })
-  .catch((err) => console.log("not commented"));
+  .catch((err) => console.log("not connented"));

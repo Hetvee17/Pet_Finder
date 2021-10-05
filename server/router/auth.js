@@ -55,9 +55,11 @@ router.post("/signin", async (req, res) => {
         httpOnly: true,
       });
       console.log(password);
-      console.log(userLogin.password)
+      console.log(userLogin.password);
       if (password != userLogin.password) {
-        res.status(404).json({ success: false, message: "passwords do not match" });
+        res
+          .status(404)
+          .json({ success: false, message: "passwords do not match" });
       } else {
         res.status(202).json({
           error: "signed successfully",
@@ -78,6 +80,33 @@ router.get("/UserProf", authenticate, (req, res) => {
   res.send(req.rootUser);
 });
 
+//getuser
+router.get("/UserProf/:id", async(req, res) => {
+  try{
+    const user=await User.findById(req.params.id);
+  res.status(200).json({success:true ,user});}catch(err){
+    res.status(422).json({error:"Error while getting user "})
+  }
+});
+//update
+router.put("/UserProf/update/:id",async(req,res)=>{
+  let user= await User.findById(req.params.id);
+  if(!user)
+  {
+    return res.status(422).json({success:false,message:"user not found"});
+  }
+  try{
+  user = await User.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidator:true,useFindAndModify:false});
+  if(user)
+  res.status(201).json({success:true,user})
+  else{
+    res.status(422).json({success:false,error:"can not update"});
+    }
+    
+}catch(err){
+  res.status(422).json({error:"error while update"});
+}
+})
 router.get("/logout", (req, res) => {
   console.log("hello from logout");
   res.clearCookie("jwtoken", { path: "/" });
