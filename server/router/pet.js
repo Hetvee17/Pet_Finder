@@ -4,29 +4,38 @@ const Apifeatures = require("../utils/apiFeatures");
 require("../db/conn");
 const Pet = require("../models/petSchema");
 const User = require("../models/userSchema");
+const Authenticate = require("../middleware/authenticate");
 //add pet
-router.post("/pets/new", async (req, res) => {
-  const { name, catagory, location, age, breed, color } = req.body;
-  if ((!name, !catagory, !location, !age, !breed, !color)) {
+router.post("/pets/add", async (req, res) => {
+  const { name, age, location, breed, color, catagory, email } = req.body;
+  if (!name) {
     return res
       .status(422)
       .json({ error: "please fill the fields properly..!!" });
   }
+
   try {
+    const userExist = await User.findOne({ email: email });
+    if (!userExist) {
+      return res.status(402).json({ error: "please Enter Registered email!!" });
+    }
     const pet = await Pet.create(req.body);
     if (pet) {
-      res.status(201).send({ message: "Added pet succesfully" });
+      console.log("Pet Added");
+      res.status(201).send(pet);
     } else {
-      res.status(422).json({ error: "Failed to add Pet" });
+      console.log("Failed to add pet");
+      res.status(425).json({ error: "Failed to add Pet" });
     }
   } catch (err) {
+    console.log("catch err from pet add");
     res.status(422).json({ error: "Error" });
   }
 });
 //get all product
 router.get("/Pets", async (req, res) => {
   try {
-    const apiFeatures = new Apifeatures(Pet.find(), req.query.keyword).search();
+    const apiFeatures = new Apifeatures(Pet.find(), req.query).search().filter();
     const pets = await apiFeatures.query;
     if (pets) res.status(200).json({ success: true, pets });
     else {

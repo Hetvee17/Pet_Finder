@@ -2,14 +2,17 @@ const mongoose = require("mongoose");
 require("../db/conn");
 
 const petSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  catagory: { type: String, required: true },
-  age: { type: Number, required: true },
-  breed: { type: String, required: true },
-  location: { type: String, required: true },
-  color: { type: String, required: true },
+  name: { type: String, default:"Fido" },
+  catagory: { type: String, default:"Dog" },
+  age: { type: String, default:"Dontknow" },
+  breed: { type: String, default:"Dontknow" },
+  location: { type: String, default:"" },
+  color: { type: String, default:"black" },
+  vaccinated: { type: Number, default: 0 },
+  trained: { type: Number, default: 0 },
   likes: { type: Number, defult: 0 },
-  ownerEmail:{type:String},
+  description: { type: String ,default:""},
+  email: { type: String ,required: true},
   images: [
     {
       public_id: { type: String, default: "Default" },
