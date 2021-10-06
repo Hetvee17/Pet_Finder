@@ -11,7 +11,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import UserProf from "./components/pages/UserProf";
 import { initialState, reducer } from "../src/reducer/UseReducer";
-
+import DonatePet from "./components/pages/Pets/DonatePet";
 //contextapi
 export const UserContext = createContext();
 
@@ -28,6 +28,7 @@ const App = () => {
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <Route path="/UserProfile" component={UserProf} />
+            <Route path="/Pets/Add" component={DonatePet} />
             <Route component={ErrorPage} />
           </Switch>
           <Footer />

@@ -1,13 +1,12 @@
-import React, { useState ,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./Button";
 import "./Navbar.css";
 import logo from "../images/logo.png";
-import {UserContext} from '../App.js'
+import { UserContext } from "../App.js";
 console.log(logo);
 function Navbar() {
-
-  const {state, dispatch }=useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
@@ -61,6 +60,15 @@ function Navbar() {
               Adopted
             </Link>
           </li>
+          <li clasName="nav-item">
+            <Link
+              to="/Pets/Add"
+              className="nav-links"
+              onClick={closeMobileMenu}
+            >
+              Add Pet
+            </Link>
+          </li>
           <li>
             {button && (
               <Button buttonStyle="btn--outline">
@@ -70,8 +78,7 @@ function Navbar() {
           </li>
         </ul>
       );
-    }
-    else {
+    } else {
       return (
         <ul className={click ? "nav-menu active" : "nav-menu"}>
           <li clasName="nav-item">
@@ -116,11 +123,10 @@ function Navbar() {
               </Button>
             )}
           </li>
-        
         </ul>
       );
     }
-  }
+  };
   return (
     <>
       <nav className="navbar">
@@ -132,7 +138,7 @@ function Navbar() {
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-window-close" : "fas fa-bars"}></i>
           </div>
-         <RenderMenu />
+          <RenderMenu />
         </div>
       </nav>
     </>
