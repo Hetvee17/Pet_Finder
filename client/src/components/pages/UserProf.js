@@ -6,12 +6,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function UserProf() {
   const History = useHistory();
-  const [userData, setUserData] = useState(
-    {
-      email: "notDefind",
-      name:"notDefind"
-    }
-  );
+  const [userData, setUserData] = useState({
+    email: "notDefind",
+    name: "notDefind",
+  });
 
   const callUserProf = async () => {
     try {
@@ -35,7 +33,6 @@ export default function UserProf() {
         const error = new Error(res.error);
         throw error;
       }
-      //  History.push("/UserProfile");
     } catch (error) {
       console.log(error);
       History.push("/Login");
@@ -55,30 +52,30 @@ export default function UserProf() {
   };
   return (
     <>
-      <div class="container-fluid" id="wrapper-container">
+      <div className="container-fluid" id="wrapper-container">
         <div id="currentSection"></div>
-        <div class="container-fluid  mb-5 ">
+        <div className="container-fluid  mb-5 ">
           {/* top image */}
-          <div class="row mb-5">
-            <div class="col-12 col-lg-12 col-xl-12 col-sm-12 col-md-12">
-              <div class="jumbotron-fluid">
+          <div className="row mb-5">
+            <div className="col-12 col-lg-12 col-xl-12 col-sm-12 col-md-12">
+              <div className="jumbotron-fluid">
                 {/* user profile image */}
                 <form method="GET">
                   <div
-                    className="prof-image card-img-top"
+                    classNameName="prof-image card-img-top"
                     style={{
                       backgroundImage:
                         'url("https://cdn.pixabay.com/photo/2019/08/19/07/45/pets-4415649__340.jpg ")',
                     }}
                   >
-                    <div class="profile-tab text-center">
+                    <div className="profile-tab text-center">
                       <p>
-                        <i class="fa fa-envelope mr-1 email" />
+                        <i className="fa fa-envelope mr-1 email" />
                         &nbsp;
                         {userData.email}
                       </p>
                       <p>
-                        <i class="fa fa-user mr-1 username" />
+                        <i className="fa fa-user mr-1 username" />
                         &nbsp;
                         {userData.name}
                       </p>
@@ -87,25 +84,25 @@ export default function UserProf() {
                           data-toggle="modal"
                           data-target="#exampleModal"
                           href="#modal"
-                          class="text-white"
-                          data-toggle="tooltip"
+                          className="text-white"
+                          //data-toggle="tooltip"
                           data-placement="bottom"
                           title="Edit profile"
                         >
-                          <i class="fa fa-pencil text-white" /> Edit
+                          <i className="fa fa-pencil text-white" /> Edit
                         </a>
                       </p>
-                      <p class="mb-5">
+                      <p className="mb-5">
                         <a
                           data-toggle="modal"
                           data-target="#exampleModalUpload"
                           href="#Upload"
-                          class="text-white mb-5"
-                          data-toggle="tooltip"
+                          className="text-white mb-5"
+                          //data-toggle="tooltip"
                           data-placement="bottom"
                           title="Change profile"
                         >
-                          <i class="fa fa-upload mr-1 text-white"></i>Upload
+                          <i className="fa fa-upload mr-1 text-white"></i>Upload
                         </a>
                       </p>
                     </div>
@@ -117,12 +114,12 @@ export default function UserProf() {
             </div>
           </div>
           {/* row end */}
-          <div class="row " id="Uploads">
-            <div class="col-12 col-lg-12 col-md-12 col-sm-12 ">
-              <div class="row text-center">
-                <div class="col-12 col-lg-12 col-md-12 col-sm-12 ">
+          <div className="row " id="Uploads">
+            <div className="col-12 col-lg-12 col-md-12 col-sm-12 ">
+              <div className="row text-center">
+                <div className="col-12 col-lg-12 col-md-12 col-sm-12 ">
                   <div
-                    class="alert alert-primary py-3 mt-5"
+                    className="alert alert-primary py-3 mt-5"
                     style={{ backgroundColor: "#231942", color: "white" }}
                   >
                     Uploaded Pets
@@ -131,54 +128,62 @@ export default function UserProf() {
               </div>
             </div>
             {/* sec col */}
-            <div class="col-12 col-lg-12 col-md-12 col-sm-12">
-              <div class="row">
-                <div class="col-md-4 col-lg-4 col-xl-3 col-sm-6 col-12 mt-3">
-                  <div class="card  petAddedCard">
+            <div className="col-12 col-lg-12 col-md-12 col-sm-12">
+              <div className="row">
+                <div className="col-md-4 col-lg-4 col-xl-3 col-sm-6 col-12 mt-3">
+                  <div className="card  petAddedCard">
                     <div
-                      className="images card-img-top inner"
+                      classNameName="images card-img-top inner"
                       style={{
                         backgroundImage:
                           'url(("https://cdn.pixabay.com/photo/2019/08/19/07/45/pets-4415649__340.jpg ")',
                       }}
                     >
                       <button
-                        className="btn btn-outline-secondary pet-pics"
+                        classNameName="btn btn-outline-secondary pet-pics"
                         data-toggle="modal"
                         data-target="#petsModalUpload"
                       >
-                        <i class="fa fa-camera" />
+                        <i className="fa fa-camera" />
                       </button>
                       {/* aya database mathi uploaded pets */}
                     </div>
                     {/* image end */}
                     {/* card body start */}
-                    <div class="card-body">
-                      <h5 class="card-title">name,bread</h5>
-                      <p class="card-text">
+                    <div className="card-body">
+                      <h5 className="card-title">name,bread</h5>
+                      <p className="card-text">
                         trained vaccinated
                         {/* here add if trained nd vc of not */}
                       </p>
-                      <p class="card-text">
-                        <i class="fa fa-address-book-o" aria-hidden="true" />
+                      <p className="card-text">
+                        <i
+                          className="fa fa-address-book-o"
+                          aria-hidden="true"
+                        />
                         &nbsp Location
                         {/* here add location from backnd */}
                       </p>
                     </div>
                     {/* card body end */}
                     {/* card footer start */}
-                    <div class="card-footer">
-                      <span class="like-container">
-                        <button type="submit" class="btn hvr-glow like-click">
-                          <i class="fa fa-heart" style={{ color: "red" }} />
+                    <div className="card-footer">
+                      <span className="like-container">
+                        <button
+                          type="submit"
+                          className="btn hvr-glow like-click"
+                        >
+                          <i className="fa fa-heart" style={{ color: "red" }} />
                         </button>
-                        <span class="likes">5{/* here add like count */}</span>
+                        <span className="likes">
+                          5{/* here add like count */}
+                        </span>
                       </span>
                       <a
                         href="#petProfile"
-                        class="btn more btn-outline-primary ml-3"
+                        className="btn more btn-outline-primary ml-3"
                       >
-                        <i class="fa fa-info px-1" />
+                        <i className="fa fa-info px-1" />
                       </a>
                     </div>
                   </div>
@@ -189,12 +194,12 @@ export default function UserProf() {
           </div>
           {/* row upload ends */}
           {/* row liked starts */}
-          <div class="row " id="Liked">
-            <div class="col-12 col-lg-12 col-md-12 col-sm-12 ">
-              <div class="row text-center">
-                <div class="col-12 col-lg-12 col-md-12 col-sm-12 ">
+          <div className="row " id="Liked">
+            <div className="col-12 col-lg-12 col-md-12 col-sm-12 ">
+              <div className="row text-center">
+                <div className="col-12 col-lg-12 col-md-12 col-sm-12 ">
                   <div
-                    class="alert alert-primary py-3 mt-5"
+                    className="alert alert-primary py-3 mt-5"
                     style={{ backgroundColor: "#231942", color: "white" }}
                   >
                     {" "}
@@ -204,54 +209,62 @@ export default function UserProf() {
               </div>
             </div>
             {/* like uploaded here add liked pet info  */}
-            <div class="col-12 col-lg-12 col-md-12 col-sm-12">
-              <div class="row">
-                <div class="col-md-4 col-lg-4 col-xl-3 col-sm-6 col-12 mt-3">
-                  <div class="card  petAddedCard">
+            <div className="col-12 col-lg-12 col-md-12 col-sm-12">
+              <div className="row">
+                <div className="col-md-4 col-lg-4 col-xl-3 col-sm-6 col-12 mt-3">
+                  <div className="card  petAddedCard">
                     <div
-                      className="images card-img-top inner"
+                      classNameName="images card-img-top inner"
                       style={{
                         backgroundImage:
                           'url(("https://cdn.pixabay.com/photo/2019/08/19/07/45/pets-4415649__340.jpg ")',
                       }}
                     >
                       <button
-                        className="btn btn-outline-secondary pet-pics"
+                        classNameName="btn btn-outline-secondary pet-pics"
                         data-toggle="modal"
                         data-target="#petsModalUpload"
                       >
-                        <i class="fa fa-camera" />
+                        <i className="fa fa-camera" />
                       </button>
                       {/* aya database mathi uploaded pets */}
                     </div>
                     {/* image end */}
                     {/* card body start */}
-                    <div class="card-body">
-                      <h5 class="card-title">name,bread</h5>
-                      <p class="card-text">
+                    <div className="card-body">
+                      <h5 className="card-title">name,bread</h5>
+                      <p className="card-text">
                         trained vaccinated
                         {/* here add if trained nd vc of not */}
                       </p>
-                      <p class="card-text">
-                        <i class="fa fa-address-book-o" aria-hidden="true" />
+                      <p className="card-text">
+                        <i
+                          className="fa fa-address-book-o"
+                          aria-hidden="true"
+                        />
                         &nbsp Location
                         {/* here add location from backnd */}
                       </p>
                     </div>
                     {/* card body end */}
                     {/* card footer start */}
-                    <div class="card-footer">
-                      <span class="like-container">
-                        <button type="submit" class="btn hvr-glow like-click">
-                          <i class="fa fa-heart" style={{ color: "red" }} />
+                    <div className="card-footer">
+                      <span className="like-container">
+                        <button
+                          type="submit"
+                          className="btn hvr-glow like-click"
+                        >
+                          <i className="fa fa-heart" style={{ color: "red" }} />
                         </button>
-                        <span class="likes">5{/* here add like count */}</span>
+                        <span className="likes">
+                          5{/* here add like count */}
+                        </span>
                       </span>
                       <a
                         href="#petProfile"
-                        class="btn more btn-outline-primary ml-3"
+                        className="btn more btn-outline-primary ml-3"
                       >
-                        <i class="fa fa-info px-1" />
+                        <i className="fa fa-info px-1" />
                       </a>
                     </div>
                   </div>
@@ -260,9 +273,9 @@ export default function UserProf() {
             </div>
           </div>
         </div>
-        <div class="mx-auto">
+        <div className="mx-auto">
           <button
-            class="btn btn-primary text-white mt-5 py-2 ml-2"
+            className="btn btn-primary text-white mt-5 py-2 ml-2"
             id="goToTop"
             onClick={scrollToTop}
           >
@@ -270,14 +283,14 @@ export default function UserProf() {
           </button>
           &nbsp;
           <button
-            class="btn btn-primary text-white mt-5 py-2 ml-2"
+            className="btn btn-primary text-white mt-5 py-2 ml-2"
             id="goToUploads"
           >
             Go to uploads
           </button>
           &nbsp;
           <button
-            class="btn btn-primary text-white mt-5 py-2 ml-2"
+            className="btn btn-primary text-white mt-5 py-2 ml-2"
             id="goToLiked"
           >
             Go to liked
@@ -286,41 +299,41 @@ export default function UserProf() {
       </div>
       {/* modal from ofr update user info */}
       <div
-        class="modal"
+        className="modal"
         id="exampleModal"
         tabindex="-1"
         role="dialog"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Update Info</h5>&nbsp;
-              <span class="text-muted text-danger"> * required field</span>
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Update Info</h5>&nbsp;
+              <span className="text-muted text-danger"> * required field</span>
               <button
                 type="button"
-                class="close"
+                className="close"
                 data-dismiss="modal"
                 aria-label="Close"
               >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body" id="userUpdateModalForm">
+            <div className="modal-body" id="userUpdateModalForm">
               <form
                 id="userProfile"
                 style={{ border: "1px", solid: "#ccc" }}
                 enctype="multipart/form-data"
               >
-                <div class="form-container">
+                <div className="form-container">
                   <label for="Name">
                     <b>Name</b>
-                    <span class="text-muted text-danger">*</span>
+                    <span className="text-muted text-danger">*</span>
                   </label>
                   <input
                     type="text"
-                    class="updateUserInfo"
+                    className="updateUserInfo"
                     placeholder="Enter  name..."
                     id="name"
                     name="name"
@@ -328,11 +341,11 @@ export default function UserProf() {
                   />
                   <label for="Email">
                     <b>Email</b>
-                    <span class="text-muted text-danger">*</span>
+                    <span className="text-muted text-danger">*</span>
                   </label>
                   <input
                     type="text"
-                    class="updateUserInfo"
+                    className="updateUserInfo"
                     placeholder="Enter Email..."
                     id="email"
                     name="email"
@@ -342,13 +355,13 @@ export default function UserProf() {
               </form>
             </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="updateInfo">
+            <div className="modal-footer">
+              <button type="button" className="btn btn-primary" id="updateInfo">
                 Update
               </button>
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-dismiss="modal"
               >
                 Close

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "./Button.js";
+import { Button } from "../Button/Button.js";
 import "./Footer.css";
 import Social from './Social';
 function Footer() {
@@ -7,8 +7,8 @@ function Footer() {
     <div className="footer-container">
       <section className="footer-subscription">
         <p className="footer-subscription-heading">
-          <i class="fas fa-copyright"></i>-2021 || Petfinder
-          <i class="fas fa-envelope"></i>
+          <i className="fas fa-copyright"></i>-2021 || Petfinder
+          <i className="fas fa-envelope"></i>
           <br />
         </p>
         <p classroom="footer-subscription-text">

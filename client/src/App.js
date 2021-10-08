@@ -1,8 +1,8 @@
 import "./App.css";
 import React, { useReducer, createContext } from "react";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/layouts/Navbar";
 import Home from "./components/pages/Home";
-import Footer from "./components/Footer";
+import Footer from "./components/layouts/Footer";
 import Signup from "./components/pages/Auth/Signup";
 import Login from "./components/pages/Auth/Login";
 import Logout from "./components/pages/Auth/Logout";
@@ -10,8 +10,10 @@ import ErrorPage from "./components/pages/ErrorPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import UserProf from "./components/pages/UserProf";
-import { initialState, reducer } from "../src/reducer/UseReducer";
+import { initialState, reducer } from "./reducer/UseReducer";
 import DonatePet from "./components/pages/Pets/DonatePet";
+import PetDetail from "./components/pages/Pets/PetDetails";
+import Dogs from "./components/pages/Pets/Dogs";
 //contextapi
 export const UserContext = createContext();
 
@@ -28,7 +30,9 @@ const App = () => {
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <Route path="/UserProfile" component={UserProf} />
+            <Route path="/Pets/:id" component={PetDetail} />
             <Route path="/Pets/Add" component={DonatePet} />
+            <Route path="/Pets/{catagory='Dog'}" component={Dogs} />
             <Route component={ErrorPage} />
           </Switch>
           <Footer />

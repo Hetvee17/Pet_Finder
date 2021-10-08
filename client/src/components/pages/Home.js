@@ -1,14 +1,58 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../App.css";
-import Cards from "../Cards";
-import HeroSection from "../HeroSection";
-import MetaData from '../../MetaData';
+import Cards from "../cards/Cards";
+import HeroSection from "../layouts/HeroSection";
+import MetaData from "../../MetaData";
+import { getPet } from "../../actions/petAction";
+import { useSelector, useDispatch } from "react-redux";
+import Loader from "../layouts/Loader";
+import {useAlert} from 'react-alert';
+// const Pet = {
+//   _id: 1,
+//   name: "honey",
+//   catagory: "dog",
+//   location: "gujarat",
+//   breed: "pomerian",
+//   image: [{ url: "./images/pets/DogBeagle.jpg" }],
+//   age: "5 months",
+//   description: "he,s cute though",
+// };
 function Home() {
+  const alert = useAlert();
+  const dispatch = useDispatch();
+  const { loading, error, pets, petsCount } = useSelector(
+    (state) => state.pets
+  );
+  useEffect(() => {
+    if (error) {
+      return alert.error(error);
+    }
+    dispatch(getPet());
+  }, [dispatch,error]);
   return (
     <>
-      <MetaData title="Home" />
-      <HeroSection />
-      <Cards />
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <MetaData title="Home" />
+          <HeroSection />
+          <div
+            className="container"
+            id="container"
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justify: "center",
+            }}
+          >
+            <div className="row mt-4 ml-3 mr-3 mb-5">
+              {/* <Cards pet={Pet} /> */}
+              {pets && pets.map((pet) => <Cards pet={pet} />)}
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

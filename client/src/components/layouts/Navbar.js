@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "./Button";
+import { Button } from "../Button/Button";
 import "./Navbar.css";
-import logo from "../images/logo.png";
-import { UserContext } from "../App.js";
+import logo from "../../images/logo.png";
+import { UserContext } from "../../App.js";
 console.log(logo);
 function Navbar() {
-  const { state, dispatch } = useContext(UserContext);
+  const { state } = useContext(UserContext);
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
@@ -131,7 +131,7 @@ function Navbar() {
     <>
       <nav className="navbar">
         <div className="navbar-container">
-          <Link to="/" classname="navbar-logo" onClick={closeMobileMenu}>
+          <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             <img src={logo} alt="Petfinder" className="image-logo"></img>
             <i class="fas fa-paw"></i>
           </Link>

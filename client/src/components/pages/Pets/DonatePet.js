@@ -1,5 +1,5 @@
-import React, { useState, Link } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory, Link } from "react-router-dom";
 export default function DonatePet() {
   const History = useHistory();
   const [pet, setPet] = useState({
@@ -138,7 +138,6 @@ export default function DonatePet() {
                       class="form-check-input"
                       type="radio"
                       name="vaccinated"
-                      id="vaccinated"
                       id="vaccinated"
                       value="0"
                       onChange={handleInputs}
@@ -324,7 +323,7 @@ export default function DonatePet() {
               Add
             </button>
             <button type="button" class="cancelbtn">
-              Cancek
+              <Link to="/">Cancek</Link>
             </button>
           </div>
         </div>

@@ -36,6 +36,29 @@
     transform: rotate(360deg);
   }
 }
+/* for loading */
+.loading {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: grid;
+  place-items: center;
+  max-width: 100%;
+}
+
+.loading > div {
+  width: 10vw;
+  height: 10vmax;
+  border-bottom: 5px solid rgb(0, 0, 0.7);
+  border-radius: 50%;
+  animation: loadingRotate 800ms linear infinite;
+}
+
+@keyframes loadingRotate {
+  to {
+    transform: rotateZ(-360deg);
+  }
+}
 
 /* for error page */
 #notfound {
@@ -131,5 +154,3 @@
     font-size: 26px;
   }
 }
-
-
