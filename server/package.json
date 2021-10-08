@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.15",
     "nodemon": "^2.0.13",
-    "regex": "^0.1.1"
+    "regex": "^0.1.1",
+    "validator": "^13.6.0"
   }
 }

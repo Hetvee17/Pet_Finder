@@ -2,21 +2,36 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("../db/conn");
+const validator = require("validator");
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
     minlength: 3,
-    maxlength: 20,
-    required: true,
+    maxlength: [20, "Max length is 20"],
+    required: [true, "Please enter Name"],
     trim: true,
   },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
+  email: {
+    type: String,
+    required: true,
+    valide: [validator.isEmail, "please enter valid"],
+  },
+  password: { type: String, required: true, minlength: 5, selector: false },
+  avatar: {
+    public_id: { type: String, require: true },
+    url: {
+      type: String,
+      require: true,
+    },
+  },
+
   tokens: [
     {
       token: { type: String, required: true },
     },
   ],
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
 });
 
 //generating token
@@ -34,4 +49,10 @@ userSchema.methods.generateAuthToken = async function () {
 };
 const User = mongoose.model("USER", userSchema);
 
+// userSchema.pre("save", async function (next) {
+//   if (!this.inModify("password")) {
+//     next();
+//   }
+//   this.password = await bcrypt.hash(this.password, 10);
+// });
 module.exports = User;

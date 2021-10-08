@@ -27,12 +27,22 @@ router.post("/register", async (req, res) => {
       return res.status(422).json({ error: "Password is incorrect" });
     }
 
-    const user = new User({ name, email, password });
+    const user = new User({
+      name,
+      email,
+      password,
+      avatar: {
+        public_id: "SamplePic",
+        url: "profilepic",
+      },
+    });
     user.save();
-
-    res.status(201).json({ message: "User saved successfully" });
+    res
+      .status(201)
+      .json({ success: "true", message: "User saved successfully", user });
   } catch (err) {
     console.log("Failed");
+    res.status(422).json({ success: "failed" });
   }
   console.log("hello from registered");
 });
@@ -63,6 +73,8 @@ router.post("/signin", async (req, res) => {
       } else {
         res.status(202).json({
           error: "signed successfully",
+          token,
+          userLogin,
         });
       }
     } else {
@@ -81,32 +93,34 @@ router.get("/UserProf", authenticate, (req, res) => {
 });
 
 //getuser
-router.get("/UserProf/:id", async(req, res) => {
-  try{
-    const user=await User.findById(req.params.id);
-  res.status(200).json({success:true ,user});}catch(err){
-    res.status(422).json({error:"Error while getting user "})
+router.get("/UserProf/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json({ success: true, user });
+  } catch (err) {
+    res.status(422).json({ error: "Error while getting user " });
   }
 });
 //update
-router.put("/UserProf/update/:id",async(req,res)=>{
-  let user= await User.findById(req.params.id);
-  if(!user)
-  {
-    return res.status(422).json({success:false,message:"user not found"});
+router.put("/UserProf/update/:id", async (req, res) => {
+  let user = await User.findById(req.params.id);
+  if (!user) {
+    return res.status(422).json({ success: false, message: "user not found" });
   }
-  try{
-  user = await User.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidator:true,useFindAndModify:false});
-  if(user)
-  res.status(201).json({success:true,user})
-  else{
-    res.status(422).json({success:false,error:"can not update"});
+  try {
+    user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidator: true,
+      useFindAndModify: false,
+    });
+    if (user) res.status(201).json({ success: true, user });
+    else {
+      res.status(422).json({ success: false, error: "can not update" });
     }
-    
-}catch(err){
-  res.status(422).json({error:"error while update"});
-}
-})
+  } catch (err) {
+    res.status(422).json({ error: "error while update" });
+  }
+});
 router.get("/logout", (req, res) => {
   console.log("hello from logout");
   res.clearCookie("jwtoken", { path: "/" });
