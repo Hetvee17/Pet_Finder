@@ -1,22 +1,12 @@
 import React, { useEffect } from "react";
 import "../../App.css";
-import Cards from "../cards/Cards";
+import Cards from "../layouts/Cards";
 import HeroSection from "../layouts/HeroSection";
 import MetaData from "../../MetaData";
 import { getPet } from "../../actions/petAction";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../layouts/Loader";
 import {useAlert} from 'react-alert';
-// const Pet = {
-//   _id: 1,
-//   name: "honey",
-//   catagory: "dog",
-//   location: "gujarat",
-//   breed: "pomerian",
-//   image: [{ url: "./images/pets/DogBeagle.jpg" }],
-//   age: "5 months",
-//   description: "he,s cute though",
-// };
 function Home() {
   const alert = useAlert();
   const dispatch = useDispatch();

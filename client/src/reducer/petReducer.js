@@ -46,7 +46,8 @@ export const petReducer = (state = { pet: [] }, action) => {
       return {
         loading: false,
         pets: action.payload.pets,
-        petsCount: action.payload.petscount,
+        petsCount: action.payload.petsCount,
+        resultPerPage: action.payload.resultPerPage,
       };
     case ALL_PET_FAIL:
       return {

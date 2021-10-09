@@ -13,7 +13,7 @@ import UserProf from "./components/pages/UserProf";
 import { initialState, reducer } from "./reducer/UseReducer";
 import DonatePet from "./components/pages/Pets/DonatePet";
 import PetDetail from "./components/pages/Pets/PetDetails";
-import Dogs from "./components/pages/Pets/Dogs";
+import Pets from "./components/pages/Pets/Pets";
 //contextapi
 export const UserContext = createContext();
 
@@ -30,9 +30,9 @@ const App = () => {
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <Route path="/UserProfile" component={UserProf} />
-            <Route path="/Pets/:id" component={PetDetail} />
+            <Route path="/Pet/:id" component={PetDetail} />
             <Route path="/Pets/Add" component={DonatePet} />
-            <Route path="/Pets/{catagory='Dog'}" component={Dogs} />
+            <Route path="/Pets/:keyword" component={Pets} />
             <Route component={ErrorPage} />
           </Switch>
           <Footer />

@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import "./petDetails.css";
 import { useSelector, useDispatch } from "react-redux";
-import { getPetDetails , clearErrors} from "../../../actions/petAction";
+import { getPetDetails, clearErrors } from "../../../actions/petAction";
 import Loader from "../../layouts/Loader";
+import "../../../App.css";
+  
+
 export default function PetDetails({ match }) {
   const dispatch = useDispatch();
-
-  const { pet, loading , error ,alert} = useSelector((state) => state.petDetails);
+  const { pet, loading, error, alert } = useSelector(
+    (state) => state.petDetails
+  );
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -21,7 +25,7 @@ export default function PetDetails({ match }) {
       ) : (
         <div class="container-individual  mb-5">
           <div class="card mb-3">
-            <div class="inner">
+            <div class="petinner">
               <img
                 class="card-img-top"
                 src={

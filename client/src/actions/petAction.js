@@ -9,33 +9,35 @@ import {
 } from "../constants/petConstants";
 import axios from "axios";
 
-export const getPet = () => async (dispatch) => {
-  try {
-    dispatch({
-      type: ALL_PET_REQUEST,
-    });
-    const { data } = await axios.get("/pets");
-    if (data) {
+export const getPet =
+  (keyword = "" , currentPage=1) =>
+  async (dispatch) => {
+    try {
       dispatch({
-        type: ALL_PET_SUCCESS,
-        payload: data,
+        type: ALL_PET_REQUEST,
       });
-      return;
-    } else throw new Error();
-  } catch (error) {
-    dispatch({
-      type: ALL_PET_FAIL,
-      payload: error,
-    });
-  }
-};
+      const { data } = await axios.get(`/pets?keyword=${keyword}&page=${currentPage}`);
+      if (data) {
+        dispatch({
+          type: ALL_PET_SUCCESS,
+          payload: data,
+        });
+        return;
+      } else throw new Error();
+    } catch (error) {
+      dispatch({
+        type: ALL_PET_FAIL,
+        payload: error,
+      });
+    }
+  };
 //petdetails
 export const getPetDetails = (id) => async (dispatch) => {
   try {
     dispatch({
       type: PET_DETAILS_REQUEST,
     });
-    const { data } = await axios.get(`/pets/${id}`);
+    const { data } = await axios.get(`/pet/${id}`);
     if (data) {
       dispatch({
         type: PET_DETAILS_SUCCESS,
@@ -46,7 +48,7 @@ export const getPetDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PET_DETAILS_FAIL,
-      payload: error.response.data.message,
+      payload: {},
     });
   }
 };
