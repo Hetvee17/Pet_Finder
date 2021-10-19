@@ -37,15 +37,17 @@ router.post("/pets/add", async (req, res) => {
 router.get("/pets", async (req, res) => {
   //return next(new ErrorHander("this is temp error", 500));
   try {
-    const resultPerPage = 2;
+    const resultPerPage = 3;
     const petsCount = await Pet.countDocuments();
     const apiFeatures = new Apifeatures(Pet.find(), req.query)
       .search()
-      .filter()
-      .pagination(resultPerPage);
-    const pets = await apiFeatures.query;
-    if (pets)
-      res.status(200).json({ success: true, petsCount, pets, resultPerPage });
+      .filter();
+    let pets = await apiFeatures.query;
+  let filteredPetCount = pets.length;
+    apiFeatures.pagination(resultPerPage);
+     pets = await apiFeatures.query;
+    if (pets) {
+      res.status(200).json({ success: true, petsCount, pets, resultPerPage,filteredPetCount });}
     else {
       res.status(422).json({ success: true, error: "no pets" });
     }

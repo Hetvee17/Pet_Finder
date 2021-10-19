@@ -18,10 +18,10 @@ const userSchema = new mongoose.Schema({
   },
   password: { type: String, required: true, minlength: 5, selector: false },
   avatar: {
-    public_id: { type: String, require: true },
+    public_id: { type: String,default:"default pfp" },
     url: {
       type: String,
-      require: true,
+      default:"https://cdn.pixabay.com/photo/2019/08/19/07/45/pets-4415649__340.jpg "
     },
   },
 

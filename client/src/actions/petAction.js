@@ -6,17 +6,24 @@ import {
   PET_DETAILS_REQUEST,
   PET_DETAILS_FAIL,
   PET_DETAILS_SUCCESS,
+  PET_CATAGORY_REQUEST,
+  PET_CATAGORY_SUCCESS,
+  PET_CATAGORY_FAIL,
 } from "../constants/petConstants";
 import axios from "axios";
 
 export const getPet =
-  (keyword = "" , currentPage=1) =>
+  (keyword = "", currentPage = 1, catagory) =>
   async (dispatch) => {
     try {
       dispatch({
         type: ALL_PET_REQUEST,
       });
-      const { data } = await axios.get(`/pets?keyword=${keyword}&page=${currentPage}`);
+      let link = `/pets?keyword=${keyword}&page=${currentPage}`;
+      if (catagory) {
+        link = `/pets?keyword=${keyword}&page=${currentPage}&catagory=${catagory}`;
+      }
+      const { data } = await axios.get(link);
       if (data) {
         dispatch({
           type: ALL_PET_SUCCESS,

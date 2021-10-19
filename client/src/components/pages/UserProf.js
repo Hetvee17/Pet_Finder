@@ -1,14 +1,21 @@
-import "../modernForm.css";
 // import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import Profile from "../User/Profile";
+import "../modernForm.css";
+import Selected from "../User/SelectedPet";
+import TitleButton from "../User/TitleButton";
+import { useSelector, useDispatch } from "react-redux";
 export default function UserProf() {
   const History = useHistory();
   const [userData, setUserData] = useState({
     email: "notDefind",
     name: "notDefind",
+    avatar: {
+      public_id: "notDefind",
+      url: "notDefind",
+    },
   });
 
   const callUserProf = async () => {
@@ -25,7 +32,6 @@ export default function UserProf() {
         },
         []
       );
-
       const data = await res.json();
       console.log(data);
       setUserData(data);
@@ -56,245 +62,14 @@ export default function UserProf() {
         <div id="currentSection"></div>
         <div className="container-fluid  mb-5 ">
           {/* top image */}
-          <div className="row mb-5">
-            <div className="col-12 col-lg-12 col-xl-12 col-sm-12 col-md-12">
-              <div className="jumbotron-fluid">
-                {/* user profile image */}
-                <form method="GET">
-                  <div
-                    classNameName="prof-image card-img-top"
-                    style={{
-                      backgroundImage:
-                        'url("https://cdn.pixabay.com/photo/2019/08/19/07/45/pets-4415649__340.jpg ")',
-                    }}
-                  >
-                    <div className="profile-tab text-center">
-                      <p>
-                        <i className="fa fa-envelope mr-1 email" />
-                        &nbsp;
-                        {userData.email}
-                      </p>
-                      <p>
-                        <i className="fa fa-user mr-1 username" />
-                        &nbsp;
-                        {userData.name}
-                      </p>
-                      <p>
-                        <a
-                          data-toggle="modal"
-                          data-target="#exampleModal"
-                          href="#modal"
-                          className="text-white"
-                          //data-toggle="tooltip"
-                          data-placement="bottom"
-                          title="Edit profile"
-                        >
-                          <i className="fa fa-pencil text-white" /> Edit
-                        </a>
-                      </p>
-                      <p className="mb-5">
-                        <a
-                          data-toggle="modal"
-                          data-target="#exampleModalUpload"
-                          href="#Upload"
-                          className="text-white mb-5"
-                          //data-toggle="tooltip"
-                          data-placement="bottom"
-                          title="Change profile"
-                        >
-                          <i className="fa fa-upload mr-1 text-white"></i>Upload
-                        </a>
-                      </p>
-                    </div>
-                    {/**Profile tab */}
-                  </div>
-                </form>
-                {/**Profile pic*/}
-              </div>
-            </div>
-          </div>
-          {/* row end */}
+          <Profile userData={userData} />
           <div className="row " id="Uploads">
-            <div className="col-12 col-lg-12 col-md-12 col-sm-12 ">
-              <div className="row text-center">
-                <div className="col-12 col-lg-12 col-md-12 col-sm-12 ">
-                  <div
-                    className="alert alert-primary py-3 mt-5"
-                    style={{ backgroundColor: "#231942", color: "white" }}
-                  >
-                    Uploaded Pets
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* sec col */}
-            <div className="col-12 col-lg-12 col-md-12 col-sm-12">
-              <div className="row">
-                <div className="col-md-4 col-lg-4 col-xl-3 col-sm-6 col-12 mt-3">
-                  <div className="card  petAddedCard">
-                    <div
-                      classNameName="images card-img-top inner"
-                      style={{
-                        backgroundImage:
-                          'url(("https://cdn.pixabay.com/photo/2019/08/19/07/45/pets-4415649__340.jpg ")',
-                      }}
-                    >
-                      <button
-                        classNameName="btn btn-outline-secondary pet-pics"
-                        data-toggle="modal"
-                        data-target="#petsModalUpload"
-                      >
-                        <i className="fa fa-camera" />
-                      </button>
-                      {/* aya database mathi uploaded pets */}
-                    </div>
-                    {/* image end */}
-                    {/* card body start */}
-                    <div className="card-body">
-                      <h5 className="card-title">name,bread</h5>
-                      <p className="card-text">
-                        trained vaccinated
-                        {/* here add if trained nd vc of not */}
-                      </p>
-                      <p className="card-text">
-                        <i
-                          className="fa fa-address-book-o"
-                          aria-hidden="true"
-                        />
-                        &nbsp Location
-                        {/* here add location from backnd */}
-                      </p>
-                    </div>
-                    {/* card body end */}
-                    {/* card footer start */}
-                    <div className="card-footer">
-                      <span className="like-container">
-                        <button
-                          type="submit"
-                          className="btn hvr-glow like-click"
-                        >
-                          <i className="fa fa-heart" style={{ color: "red" }} />
-                        </button>
-                        <span className="likes">
-                          5{/* here add like count */}
-                        </span>
-                      </span>
-                      <a
-                        href="#petProfile"
-                        className="btn more btn-outline-primary ml-3"
-                      >
-                        <i className="fa fa-info px-1" />
-                      </a>
-                    </div>
-                  </div>
-                  {/*  */}
-                </div>
-              </div>
-            </div>
+            <TitleButton Title="Uploaded Pet" />
+            <Selected />
           </div>
-          {/* row upload ends */}
-          {/* row liked starts */}
           <div className="row " id="Liked">
-            <div className="col-12 col-lg-12 col-md-12 col-sm-12 ">
-              <div className="row text-center">
-                <div className="col-12 col-lg-12 col-md-12 col-sm-12 ">
-                  <div
-                    className="alert alert-primary py-3 mt-5"
-                    style={{ backgroundColor: "#231942", color: "white" }}
-                  >
-                    {" "}
-                    Liked Pets
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* like uploaded here add liked pet info  */}
-            <div className="col-12 col-lg-12 col-md-12 col-sm-12">
-              <div className="row">
-                <div className="col-md-4 col-lg-4 col-xl-3 col-sm-6 col-12 mt-3">
-                  <div className="card  petAddedCard">
-                    <div
-                      classNameName="images card-img-top inner"
-                      style={{
-                        backgroundImage:
-                          'url(("https://cdn.pixabay.com/photo/2019/08/19/07/45/pets-4415649__340.jpg ")',
-                      }}
-                    >
-                      <button
-                        classNameName="btn btn-outline-secondary pet-pics"
-                        data-toggle="modal"
-                        data-target="#petsModalUpload"
-                      >
-                        <i className="fa fa-camera" />
-                      </button>
-                      {/* aya database mathi uploaded pets */}
-                    </div>
-                    {/* image end */}
-                    {/* card body start */}
-                    <div className="card-body">
-                      <h5 className="card-title">name,bread</h5>
-                      <p className="card-text">
-                        trained vaccinated
-                        {/* here add if trained nd vc of not */}
-                      </p>
-                      <p className="card-text">
-                        <i
-                          className="fa fa-address-book-o"
-                          aria-hidden="true"
-                        />
-                        &nbsp Location
-                        {/* here add location from backnd */}
-                      </p>
-                    </div>
-                    {/* card body end */}
-                    {/* card footer start */}
-                    <div className="card-footer">
-                      <span className="like-container">
-                        <button
-                          type="submit"
-                          className="btn hvr-glow like-click"
-                        >
-                          <i className="fa fa-heart" style={{ color: "red" }} />
-                        </button>
-                        <span className="likes">
-                          5{/* here add like count */}
-                        </span>
-                      </span>
-                      <a
-                        href="#petProfile"
-                        className="btn more btn-outline-primary ml-3"
-                      >
-                        <i className="fa fa-info px-1" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <TitleButton Title="Liked Pets" /> <Selected />
           </div>
-        </div>
-        <div className="mx-auto">
-          <button
-            className="btn btn-primary text-white mt-5 py-2 ml-2"
-            id="goToTop"
-            onClick={scrollToTop}
-          >
-            Go to top
-          </button>
-          &nbsp;
-          <button
-            className="btn btn-primary text-white mt-5 py-2 ml-2"
-            id="goToUploads"
-          >
-            Go to uploads
-          </button>
-          &nbsp;
-          <button
-            className="btn btn-primary text-white mt-5 py-2 ml-2"
-            id="goToLiked"
-          >
-            Go to liked
-          </button>
         </div>
       </div>
       {/* modal from ofr update user info */}

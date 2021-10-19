@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 export default function Signup() {
   const History = useHistory();
 
@@ -13,37 +12,84 @@ export default function Signup() {
     email: "",
     password: "",
   });
+  const [avatar, setAvatar] = useState(
+    "https://cdn.pixabay.com/photo/2019/08/19/07/45/pets-4415649__340.jpg "
+  );
   let name, value;
   const handleInputs = (e) => {
-    console.log(e);
-    name = e.target.name;
-    value = e.target.value;
-    setUser({ ...user, [name]: value });
+    if (e.target.name === "avatar") {
+      console.log("direct:", e.target.files[0]);
+      const reader = new FileReader();
+      console.log("showing ava ", avatar);
+      // 0= initail 1= proce ssing 2== done
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setAvatar(reader.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    } else {
+      //  console.log(e);
+      name = e.target.name;
+      value = e.target.value;
+      setUser({ ...user, [name]: value });
+    }
   };
 
   const PostData = async (e) => {
     e.preventDefault();
     const { name, email, password } = user;
-    const res = await fetch("/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
-    });
-    const data = await res.json();
-    if (res.status === 422 || !data) {
-      window.alert("Invalid registration");
-      console.error("Invalid registration");
-    } else if (res.status === 201) {
-      window.alert("Registration successful");
-      console.log("Registration successful");
-      History.push("/login");
+    console.log("post data", avatar);
+    const myForm = new FormData();
+    myForm.set("name", name);
+    myForm.set("email", email);
+    myForm.set("password", password);
+    myForm.set("avatar", avatar);
+    if (avatar) {
+      const res = await fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "multipart/form-data" },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          avatar,
+        }),
+      });
+      const data = await res.json();
+      if (res.status === 422 || !data) {
+        window.alert("Invalid registration");
+        console.log("Invalid registration");
+      } else if (res.status === 201) {
+        window.alert("Registration successful");
+        console.log("Registration successful");
+        History.push("/login");
+      } else {
+        window.alert("unknown error");
+        console.log("unknown error");
+      }
     } else {
-      window.alert("unknown error");
-      console.log("unknown error");
+      const res = await fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+      const data = await res.json();
+      if (res.status === 422 || !data) {
+        window.alert("Invalid registration");
+        console.log("Invalid registration");
+      } else if (res.status === 201) {
+        window.alert("Registration successful");
+        console.log("Registration successful");
+        History.push("/login");
+      } else {
+        window.alert("unknown error");
+        console.log("unknown error");
+      }
     }
   };
 
@@ -51,7 +97,12 @@ export default function Signup() {
     <div className="signupcontainer-fluid signbg">
       <div className="row justify-content-center text-white">
         <div className="col-xs-12 col-sm-6 col-md-3">
-          <form className="signform-container" action="/signup" method="POST">
+          <form
+            className="signform-container"
+            action="/signup"
+            method="POST"
+            encType="multipart/form-data"
+          >
             <h4 className="text-white text-center"> Signup</h4>
             <hr />
             <div className="text-white form-group">
@@ -104,6 +155,21 @@ export default function Signup() {
                 required
               />
             </div>
+            <div className="text-white form-group">
+              <label for="image">image</label>
+              <input
+                type="file"
+                className="form-control"
+                name="avatar"
+                accept="image/*"
+                autoComplete="off"
+                // value={avatar}
+                onChange={handleInputs}
+              />
+            </div>
+            {/* <button id="btn" className=" btn form-control" onClick={uploadData}>
+              UploadImage
+            </button> */}
             <button
               type="submit"
               onClick={PostData}

@@ -16,7 +16,7 @@ export const petDetailReducer = (state = { pet: {} }, action) => {
         ...state,
       };
     case PET_DETAILS_SUCCESS:
-      return {
+       return {
         loading: false,
         pet: action.payload,
       };
@@ -46,14 +46,15 @@ export const petReducer = (state = { pet: [] }, action) => {
       return {
         loading: false,
         pets: action.payload.pets,
-        petsCount: action.payload.petsCount,
+        // petsCount: action.payload.petsCount,
         resultPerPage: action.payload.resultPerPage,
+        filteredPetCount: action.payload.filteredPetCount,
       };
     case ALL_PET_FAIL:
       return {
         loading: false,
         error: action.payload,
-        petscount: action.payload.petscount,
+        // petscount: action.payload.petscount,
       };
     case CLEAR_ERR:
       return {
@@ -64,3 +65,36 @@ export const petReducer = (state = { pet: [] }, action) => {
       return state;
   }
 };
+
+
+// export const petCatagoryReducer = (state = { pet: [] }, action) => {
+//   console.log(action.type);
+//   switch (action.type) {
+//     case PET_CATAGORY_REQUEST:
+//       return {
+//         loading: true,
+//         pets: [],
+//       };
+//     case PET_CATAGORY_SUCCESS:
+//       return {
+//         loading: false,
+//         pets: action.payload.pets,
+//         // petsCount: action.payload.petsCount,
+//         resultPerPage: action.payload.resultPerPage,
+//         filteredPetCount: action.payload.filteredPetCount,
+//       };
+//     case PET_CATAGORY_FAIL:
+//       return {
+//         loading: false,
+//         error: action.payload,
+//         // petscount: action.payload.petscount,
+//       };
+//     case CLEAR_ERR:
+//       return {
+//         ...state,
+//         error: null,
+//       };
+//     default:
+//       return state;
+//   }
+// };

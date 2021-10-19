@@ -1,15 +1,18 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 
 import thunk from "redux-thunk";
-import { petReducer ,petDetailReducer} from "./reducer/petReducer";
+import { petReducer, petDetailReducer } from "./reducer/petReducer";
+//import { userReducer } from "./reducer/userProfReducer";
+
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const reducer = combineReducers({
   pets: petReducer,
   petDetails: petDetailReducer,
+  // users: userReducer,
 });
 
-let initialState = {};
+let initialState = { };
 
 const middleware = [thunk];
 

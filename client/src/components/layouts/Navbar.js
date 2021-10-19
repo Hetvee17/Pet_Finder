@@ -41,15 +41,11 @@ function Navbar() {
           </li>
 
           <li clasName="nav-item">
-            <Link to="/Dogs" className="nav-links" onClick={closeMobileMenu}>
-              Dogs
+            <Link to="/pets" className="nav-links" onClick={closeMobileMenu}>
+              Pets
             </Link>
           </li>
-          <li clasName="nav-item">
-            <Link to="/Cats" className="nav-links" onClick={closeMobileMenu}>
-              Cats
-            </Link>
-          </li>
+
           <li clasName="nav-item">
             <Link to="/breeds" className="nav-links" onClick={closeMobileMenu}>
               Breeds
@@ -97,13 +93,8 @@ function Navbar() {
           </li>
 
           <li clasName="nav-item">
-            <Link to="/Dogs" className="nav-links" onClick={closeMobileMenu}>
-              Dogs
-            </Link>
-          </li>
-          <li clasName="nav-item">
-            <Link to="/Cats" className="nav-links" onClick={closeMobileMenu}>
-              Cats
+            <Link to="/pets" className="nav-links" onClick={closeMobileMenu}>
+              Pets
             </Link>
           </li>
           <li clasName="nav-item">

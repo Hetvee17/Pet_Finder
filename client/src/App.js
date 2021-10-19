@@ -14,7 +14,10 @@ import { initialState, reducer } from "./reducer/UseReducer";
 import DonatePet from "./components/pages/Pets/DonatePet";
 import PetDetail from "./components/pages/Pets/PetDetails";
 import Pets from "./components/pages/Pets/Pets";
+//import store from "./store"
+//import { loadUser } from "./actions/userActions";
 //contextapi
+
 export const UserContext = createContext();
 
 const App = () => {
@@ -33,6 +36,9 @@ const App = () => {
             <Route path="/Pet/:id" component={PetDetail} />
             <Route path="/Pets/Add" component={DonatePet} />
             <Route path="/Pets/:keyword" component={Pets} />
+            <Route path="/Pets" component={Pets} />
+
+            <Route path="/Pets/:keyword/:catagory" component={Pets} />
             <Route component={ErrorPage} />
           </Switch>
           <Footer />

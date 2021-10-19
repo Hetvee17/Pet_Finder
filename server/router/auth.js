@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("../db/conn");
 const User = require("../models/userSchema");
+const cloudinary = require("cloudinary");
 const authenticate = require("../middleware/authenticate");
 router.get("/", (req, res) => {
   res.send("Hello from server router");
@@ -13,6 +14,17 @@ router.get("/", (req, res) => {
 //            async await register
 //----------------------------------
 router.post("/register", async (req, res) => {
+  console.log(req.body.name);
+  // try {
+  //   console.log(req.body.name);
+  //   // const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+  //   folder: "avatars",
+  //   upload_preset: "pet-finder",
+  //   public_id: `${Date.now()}`,
+  //   width: 150,
+  //   crop: "scale",
+  // });
+  // if (myCloud) {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     return res
@@ -31,19 +43,23 @@ router.post("/register", async (req, res) => {
       name,
       email,
       password,
-      avatar: {
-        public_id: "SamplePic",
-        url: "profilepic",
-      },
     });
     user.save();
     res
       .status(201)
       .json({ success: "true", message: "User saved successfully", user });
   } catch (err) {
-    console.log("Failed");
+    console.log(err);
     res.status(422).json({ success: "failed" });
   }
+
+  // } else {
+  //   console.log("insight try block");
+  // }
+  // } catch (err) {
+  //   console.log("avatar failed", err);
+  //   res.status(422).json({ success: "failed" });
+  // }
   console.log("hello from registered");
 });
 
@@ -87,7 +103,6 @@ router.post("/signin", async (req, res) => {
 });
 
 router.get("/UserProf", authenticate, (req, res) => {
-  console.log("hello from about");
   //console.log(req.rootUser);
   res.send(req.rootUser);
 });
@@ -103,6 +118,7 @@ router.get("/UserProf/:id", async (req, res) => {
 });
 //update
 router.put("/UserProf/update/:id", async (req, res) => {
+  console.log("hello from update");
   let user = await User.findById(req.params.id);
   if (!user) {
     return res.status(422).json({ success: false, message: "user not found" });
