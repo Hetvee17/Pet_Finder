@@ -23,7 +23,7 @@ console.log(process.env.CLOUDNARY_NAME);
 //linked router file and used middleware
 app.use(require("./router/auth"));
 app.use(require("./router/pet"));
-
+app.use(require("./router/petInfo"));
 app.get("/contact", (req, res) => {
   //res.cookie("test", ruchi);
   res.send("HELLOW FROM CONTACT");

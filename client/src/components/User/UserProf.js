@@ -2,11 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Profile from "../User/Profile";
+import Profile from "./Profile";
 import "../modernForm.css";
-import Selected from "../User/SelectedPet";
-import TitleButton from "../User/TitleButton";
-import { useSelector, useDispatch } from "react-redux";
+import Selected from "./SelectedPet";
+import TitleButton from "./TitleButton";
 export default function UserProf() {
   const History = useHistory();
   const [userData, setUserData] = useState({
@@ -48,14 +47,6 @@ export default function UserProf() {
     callUserProf();
   }, []); //we cant use async fun in useEffect so defined it outside
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-      /* you can also use 'auto' behaviour
-         in place of 'smooth' */
-    });
-  };
   return (
     <>
       <div className="container-fluid" id="wrapper-container">

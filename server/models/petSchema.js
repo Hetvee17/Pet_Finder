@@ -25,14 +25,8 @@ const petSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 //     numsOfReviews: { type: String, default: 0 },
-//     reviews: [{
-//         name: { type: String, required: true },
-//         comment: { type: String, required: true },
 //         createdAt:{ type: Date, default: Date.now}
 //   }],
 //owner: { type: String, required: true}
 const Pet = mongoose.model("PET", petSchema);
-// Pet.create({
-//   name:"jack", catagory:"Dog",age:3,breed:"pug",details:"vaccinated"
-// })
 module.exports = Pet;
