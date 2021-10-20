@@ -6,11 +6,30 @@ import {
   PET_DETAILS_REQUEST,
   PET_DETAILS_FAIL,
   PET_DETAILS_SUCCESS,
-  PET_CATAGORY_REQUEST,
-  PET_CATAGORY_SUCCESS,
-  PET_CATAGORY_FAIL,
+  REGISTER_PET_REQUEST,
+  REGISTER_PET_SUCCESS,
+  REGISTER_PET_FAIL,
 } from "../constants/petConstants";
 import axios from "axios";
+
+export const registerPet = (petData) => async (dispatch) => {
+  try {
+    dispatch({ type: REGISTER_PET_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    };
+
+    const { data } = await axios.post("/pets/add", petData, config);
+
+    dispatch({ type: REGISTER_PET_SUCCESS, payload: data.pet });
+  } catch (error) {
+    dispatch({
+      type: REGISTER_PET_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 export const getPet =
   (keyword = "", currentPage = 1, catagory) =>

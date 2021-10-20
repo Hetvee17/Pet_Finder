@@ -10,7 +10,7 @@ import {useAlert} from 'react-alert';
 function Home() {
   const alert = useAlert();
   const dispatch = useDispatch();
-  const { loading, error, pets, petsCount } = useSelector(
+  const { loading, error, pets } = useSelector(
     (state) => state.pets
   );
   useEffect(() => {

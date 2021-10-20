@@ -10,7 +10,7 @@ const MODAL_STYLES = {
   zIndex: 1000,
 };
 
-export default function Edit({ open, children, user, onClose }) {
+export default function Edit({ open, children, onClose }) {
   const [userData, setUserData] = useState({
     email: "",
     name: "",
