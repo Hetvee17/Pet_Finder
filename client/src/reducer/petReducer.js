@@ -6,6 +6,9 @@ import {
   PET_DETAILS_REQUEST,
   PET_DETAILS_FAIL,
   PET_DETAILS_SUCCESS,
+  USER_PET_REQUEST,
+  USER_PET_FAIL,
+  USER_PET_SUCCESS,
   REGISTER_PET_REQUEST,
   REGISTER_PET_SUCCESS,
   REGISTER_PET_FAIL,
@@ -54,6 +57,37 @@ export const petReducer = (state = { pet: [] }, action) => {
         filteredPetCount: action.payload.filteredPetCount,
       };
     case ALL_PET_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+        // petscount: action.payload.petscount,
+      };
+    case CLEAR_ERR:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+export const userPetReducer = (state = { pet: [] }, action) => {
+  console.log(action.type);
+  switch (action.type) {
+    case USER_PET_REQUEST:
+      return {
+        loading: true,
+        pets: [],
+      };
+    case USER_PET_SUCCESS:
+      return {
+        loading: false,
+        pets: action.payload.pets,
+        // petsCount: action.payload.petsCount,
+        resultPerPage: action.payload.resultPerPage,
+        filteredPetCount: action.payload.filteredPetCount,
+      };
+    case USER_PET_FAIL:
       return {
         loading: false,
         error: action.payload,

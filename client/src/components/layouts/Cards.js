@@ -32,23 +32,13 @@ function Cards({ pet }) {
           </div>
         </div>
         <div className="petcard-footer">
-          <span class="float-right">
+          <span >
             <Link to={`/pet/${pet._id}`} class="info">
               <i
                 class="fa fa-info-circle info"
                 style={{ fontSize: "20px", color: "lightblue" }}
               ></i>
             </Link>
-            <span class="like-container">
-              <button
-                type="submit"
-                value={pet.id}
-                class="btn hvr-glow like-click"
-              >
-                <i class="fa fa-heart-o my-heart" style={{ color: "white" }} />
-              </button>
-              <span class="petlikes">0{pet.likes}</span>
-            </span>
           </span>
         </div>
       </div>

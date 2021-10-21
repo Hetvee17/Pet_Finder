@@ -9,6 +9,9 @@ import {
   REGISTER_PET_REQUEST,
   REGISTER_PET_SUCCESS,
   REGISTER_PET_FAIL,
+  USER_PET_REQUEST,
+  USER_PET_FAIL,
+  USER_PET_SUCCESS,
 } from "../constants/petConstants";
 import axios from "axios";
 
@@ -57,6 +60,34 @@ export const getPet =
       });
     }
   };
+
+export const getUserPet =
+  (keyword = "", currentPage = 1, catagory) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: USER_PET_REQUEST,
+      });
+      let link = `/Uploadedpets?keyword=${keyword}&page=${currentPage}`;
+      if (catagory) {
+        link = `/Uploadedpets?keyword=${keyword}&page=${currentPage}&catagory=${catagory}`;
+      }
+      const { data } = await axios.get(link);
+      if (data) {
+        dispatch({
+          type: USER_PET_SUCCESS,
+          payload: data,
+        });
+        return;
+      } else throw new Error();
+    } catch (error) {
+      dispatch({
+        type: USER_PET_FAIL,
+        payload: error,
+      });
+    }
+  };
+
 //petdetails
 export const getPetDetails = (id) => async (dispatch) => {
   try {

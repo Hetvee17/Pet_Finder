@@ -35,13 +35,13 @@ function Profile({ userData }) {
                 }}
               >
                 <div className="profile-tab text-center">
-                  <p>
-                    <i className="fa fa-envelope mr-1 email" />
+                  <p class="text-white">
+                    <i className="fa fa-envelope mr-1 email text-white" />
                     &nbsp;
                     {userData.email}
                   </p>
-                  <p>
-                    <i className="fa fa-user mr-1 username" />
+                  <p class="text-white">
+                    <i className="fa fa-user mr-1 username text-white" />
                     &nbsp;
                     {userData.name}
                   </p>
@@ -81,8 +81,6 @@ function Profile({ userData }) {
         </div>
       </div>
       <div className="container m-5 p-3">
-        snfjn
-        <hr></hr>
         <Edit
           user={userData}
           open={editOpen}

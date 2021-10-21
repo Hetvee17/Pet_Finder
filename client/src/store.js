@@ -1,7 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 
 import thunk from "redux-thunk";
-import { petReducer, petDetailReducer ,petAddReducer} from "./reducer/petReducer";
+import {
+  petReducer,
+  petDetailReducer,
+  userPetReducer,
+  petAddReducer,
+} from "./reducer/petReducer";
 //import { userReducer } from "./reducer/userProfReducer";
 
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -10,9 +15,10 @@ const reducer = combineReducers({
   pets: petReducer,
   petDetails: petDetailReducer,
   pet: petAddReducer,
+  userPets: userPetReducer,
 });
 
-let initialState = { };
+let initialState = {};
 
 const middleware = [thunk];
 

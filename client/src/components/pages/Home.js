@@ -37,7 +37,6 @@ function Home() {
             }}
           >
             <div className="row mt-4 ml-3 mr-3 mb-5">
-              {/* <Cards pet={Pet} /> */}
               {pets && pets.map((pet) => <Cards pet={pet} />)}
             </div>
           </div>

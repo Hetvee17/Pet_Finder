@@ -38,7 +38,7 @@ const App = () => {
             <Route path="/UserProfile" component={UserProf} />
             <Route path="/Pet/:id" component={PetDetail} />
             <Route path="/Pets/Add" component={DonatePet} />
-            <Route path="/Dogs" component={Dogs} />
+            <Route path="/breeds" component={Dogs} />
             <Route path="/Pets/:keyword" component={Pets} />
             <Route path="/Pets" component={Pets} />
 

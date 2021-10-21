@@ -3,7 +3,6 @@ const router = express.Router();
 const Apifeatures = require("../utils/apiFeatures");
 require("../db/conn");
 const Pet = require("../models/petSchema");
-const User = require("../models/userSchema");
 const Authenticate = require("../middleware/authenticate");
 const cloudinary = require("cloudinary");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
@@ -25,7 +24,7 @@ router.post(
       description,
     } = req.body;
     let donatorUser = req.userID;
-    console.log(donatorUser);
+    //    console.log(donatorUser);
     //console.log("body : ", req.body);
     try {
       const myCloud = await cloudinary.v2.uploader.upload(req.body.images, {
@@ -83,10 +82,38 @@ router.post(
   })
 );
 //get all product
+router.get("/Uploadedpets", Authenticate, async (req, res) => {
+  //return next(new ErrorHander("this is temp error", 500));
+  try {
+    //console.log(req.userID);
+    const apiFeatures = new Apifeatures(
+      Pet.find({ donatorUser: req.userID }),
+      req.query
+    )
+      .search()
+      .filter();
+    let pets = await apiFeatures.query;
+    let filteredPetCount = pets.length;
+    if (pets) {
+      console.log(filteredPetCount);
+      res.status(200).json({
+        success: true,
+        pets,
+        filteredPetCount,
+      });
+    } else {
+      res.status(422).json({ success: true, error: "no pets" });
+    }
+  } catch (err) {
+    res.status(422).json({ error: "Error while getting all pet" });
+  }
+});
+
+//uploaded pet
 router.get("/pets", async (req, res) => {
   //return next(new ErrorHander("this is temp error", 500));
   try {
-    const resultPerPage = 3;
+    const resultPerPage = 8;
     const petsCount = await Pet.countDocuments();
     const apiFeatures = new Apifeatures(Pet.find(), req.query)
       .search()
@@ -96,6 +123,7 @@ router.get("/pets", async (req, res) => {
     apiFeatures.pagination(resultPerPage);
     pets = await apiFeatures.query;
     if (pets) {
+      console.log(filteredPetCount);
       res.status(200).json({
         success: true,
         petsCount,
@@ -110,6 +138,7 @@ router.get("/pets", async (req, res) => {
     res.status(422).json({ error: "Error while getting all pet" });
   }
 });
+
 //update pet
 router.put("/pets/:id/update", async (req, res) => {
   let pet = await Pet.findById(req.params.id);
