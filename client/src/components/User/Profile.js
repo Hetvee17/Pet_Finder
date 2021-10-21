@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Edit from "./Edit";
-
+import Upload from "./Upload";
 const BUTTON_WRAPPER_STYLES = {
   position: "relative",
   zIndex: 1,
@@ -13,6 +13,8 @@ const OTHER_CONTENT_STYLES = {
 
 function Profile({ userData }) {
   const [editOpen, setEditOpen] = useState(false);
+  const [uploadOpen, setUploadOpen] = useState(false);
+
   return (
     <>
       <div className="row mb-5" style={OTHER_CONTENT_STYLES}>
@@ -61,9 +63,9 @@ function Profile({ userData }) {
                   </p>
                   <p className="mb-5">
                     <a
-                      data-toggle="modal"
-                      data-target="#exampleModalUpload"
-                      href="#Upload"
+                      onClick={() => {
+                        setUploadOpen(true);
+                      }}
                       className="text-white mb-5"
                       //data-toggle="tooltip"
                       data-placement="bottom"
@@ -85,9 +87,13 @@ function Profile({ userData }) {
           user={userData}
           open={editOpen}
           onClose={() => setEditOpen(false)}
+        ></Edit>
+        <Upload
+          user={userData}
+          open={uploadOpen}
+          onClose={() => setUploadOpen(false)}
         >
-          sjndjn
-        </Edit>
+        </Upload>
       </div>
     </>
   );

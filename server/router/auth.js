@@ -6,13 +6,8 @@ require("../db/conn");
 const User = require("../models/userSchema");
 const cloudinary = require("cloudinary");
 const authenticate = require("../middleware/authenticate");
-router.get("/", (req, res) => {
-  res.send("Hello from server router");
-});
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 
-//----------------------------------
-//            async await register
-//----------------------------------
 router.post("/register", async (req, res) => {
   console.log(req.body.name);
   // try {
@@ -137,6 +132,70 @@ router.put("/UserProf/update/:id", async (req, res) => {
     res.status(422).json({ error: "error while update" });
   }
 });
+
+router.put(
+  "/updateProfile/:id",
+  catchAsyncErrors(async (req, res) => {
+    const { avatar } = req.body;
+    let id = req.params.id;
+    //console.log("id : ", id);
+    if (avatar !== "") {
+      console.log(id);
+      try {
+        console.log(req.body.avatar);
+        const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+          folder: "avatars",
+          width: 150,
+          crop: "scale",
+        });
+        if (!myCloud) {
+          console.log("not updated");
+          return res
+            .status(423)
+            .json({ success: false, error: "image Not Uploaded Correctly" });
+        } else {
+          newAvatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
+          };
+          try {
+            const user = await User.findByIdAndUpdate(
+              id,
+              { avatar: newAvatar },
+              {
+                new: true,
+                runValidators: true,
+                useFindAndModify: false,
+              }
+            );
+            if (user) {
+              console.log(user);
+              res.status(200).json({
+                success: true,
+              });
+            } else {
+              console.log("user not updated");
+              res.status(422).json({
+                success: false,
+              });
+            }
+          } catch (err) {
+            console.log("error while update");
+            res.status(422).json({
+              success: false,
+            });
+          }
+        }
+      } catch (err) {
+        console.log("error while uploading", err);
+        return res.status(422).json({
+          success: false,
+          error: "error while uploading",
+        });
+      }
+    }
+  })
+);
 router.get("/logout", (req, res) => {
   console.log("hello from logout");
   res.clearCookie("jwtoken", { path: "/" });

@@ -3,6 +3,8 @@ const router = express.Router();
 const Apifeatures = require("../utils/apiFeatures");
 require("../db/conn");
 const Pet = require("../models/petSchema");
+const User = require("../models/userSchema");
+
 const Authenticate = require("../middleware/authenticate");
 const cloudinary = require("cloudinary");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
@@ -109,6 +111,33 @@ router.get("/Uploadedpets", Authenticate, async (req, res) => {
   }
 });
 
+router.get("/ownedPets", Authenticate, async (req, res) => {
+  //return next(new ErrorHander("this is temp error", 500));
+  try {
+    //console.log(req.userID);
+    const apiFeatures = new Apifeatures(
+      Pet.find({ ownedBy: req.userID }),
+      req.query
+    )
+      .search()
+      .filter();
+    let pets = await apiFeatures.query;
+    let filteredPetCount = pets.length;
+    if (pets) {
+      console.log(filteredPetCount);
+      res.status(200).json({
+        success: true,
+        pets,
+        filteredPetCount,
+      });
+    } else {
+      res.status(422).json({ success: true, error: "no pets" });
+    }
+  } catch (err) {
+    res.status(422).json({ error: "Error while getting all pet" });
+  }
+});
+
 //uploaded pet
 router.get("/pets", async (req, res) => {
   //return next(new ErrorHander("this is temp error", 500));
@@ -156,23 +185,20 @@ router.put("/pets/:id/update", async (req, res) => {
       res.status(422).json({ success: false, error: "can not update" });
     }
   } catch (err) {
-    res.status(422).json({ error: "error while update" });
+    res.status(422).json({ error: "error while update" })
   }
 });
 
 //delete
-router.delete("/pets/:id/delete", async (req, res) => {
+router.delete("/pets/delete/:id", Authenticate, async (req, res) => {
   let pet = await Pet.findById(req.params.id);
   if (!pet) {
     return res.status(422).json({ success: false, message: "Pet not found" });
   }
+
   try {
     await pet.remove();
-    if (!pet)
-      res.status(201).json({ success: true, message: "Delete succesfully" });
-    else {
-      res.status(422).json({ success: false, error: "can not delete" });
-    }
+    res.status(201).json({ success: true, message: "Delete succesfully" });
   } catch (err) {
     res.status(422).json({ error: "error while update" });
   }
@@ -180,9 +206,16 @@ router.delete("/pets/:id/delete", async (req, res) => {
 
 router.get("/pet/:id", async (req, res) => {
   try {
-    const petsCount = await Pet.countDocuments();
-    const pets = await Pet.findById(req.params.id);
-    res.status(200).json({ success: true, pets, petsCount });
+    const pet = await Pet.findById(req.params.id);
+    const Email = await User.find(
+      { _id: pet.donatorUser },
+      { _id: 0, email: true }
+    );
+    const donatorEmail = Email[0].email;
+    //console.log(donatorEmail);
+    if (pet) {
+      res.status(200).json({ success: true, pet, donatorEmail });
+    } else res.status(422).json({ success: false });
   } catch (err) {
     res.status(422).json({ error: "Error while getting pet " });
   }

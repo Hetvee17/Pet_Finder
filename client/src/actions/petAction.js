@@ -98,7 +98,7 @@ export const getPetDetails = (id) => async (dispatch) => {
     if (data) {
       dispatch({
         type: PET_DETAILS_SUCCESS,
-        payload: data.pets,
+        payload: data,
       });
       return;
     } else throw new Error();

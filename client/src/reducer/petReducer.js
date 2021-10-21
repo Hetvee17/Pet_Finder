@@ -12,6 +12,9 @@ import {
   REGISTER_PET_REQUEST,
   REGISTER_PET_SUCCESS,
   REGISTER_PET_FAIL,
+  ADOPT_PET_REQUEST,
+  ADOPT_PET_FAIL,
+  ADOPT_PET_SUCCESS,
 } from "../constants/petConstants";
 
 export const petDetailReducer = (state = { pet: {} }, action) => {
@@ -24,7 +27,8 @@ export const petDetailReducer = (state = { pet: {} }, action) => {
     case PET_DETAILS_SUCCESS:
       return {
         loading: false,
-        pet: action.payload,
+        pet: action.payload.pet,
+        donatorEmail: action.payload.donatorEmail,
       };
     case PET_DETAILS_FAIL:
       return {

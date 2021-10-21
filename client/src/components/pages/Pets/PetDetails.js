@@ -4,13 +4,32 @@ import { useSelector, useDispatch } from "react-redux";
 import { getPetDetails, clearErrors } from "../../../actions/petAction";
 import Loader from "../../layouts/Loader";
 import "../../../App.css";
-  
+import { useHistory } from "react-router-dom";
 
 export default function PetDetails({ match }) {
   const dispatch = useDispatch();
-  const { pet, loading, error, alert } = useSelector(
+  const History = useHistory();
+  const { pet, loading, error, alert, donatorEmail } = useSelector(
     (state) => state.petDetails
   );
+  const Adopt = async () => {
+    const res = await fetch(`/pets/delete/${pet._id}`, {
+      method: "DELETE",
+    });
+    const data = await res.json();
+    if (res.status === 401 || !data) {
+      window.alert("Login first");
+      console.log("Login first");
+      History.push("/");
+    } else if (res.status === 201) {
+      window.alert("Adopt successful");
+      console.log("Adopt successful");
+      History.push("/");
+    } else {
+      window.alert("unknown error");
+      console.log("unknown error");
+    }
+  };
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -75,6 +94,14 @@ export default function PetDetails({ match }) {
                 <span>
                   {" "}
                   <ul>
+                    Donator : <li class="inline">{donatorEmail}</li>
+                  </ul>
+                </span>
+              </div>
+              <div class="other">
+                <span>
+                  {" "}
+                  <ul>
                     Vaccinated:
                     <li class="inline">{pet.vaccinated}</li>
                     Trained:
@@ -87,6 +114,7 @@ export default function PetDetails({ match }) {
                 type="button"
                 // value="{{petprofile._id}}"
                 class="btn btn-block btn-adopt"
+                onClick={Adopt}
               >
                 Adopt
               </button>

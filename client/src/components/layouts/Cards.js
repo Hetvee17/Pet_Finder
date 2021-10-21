@@ -33,7 +33,7 @@ function Cards({ pet }) {
         </div>
         <div className="petcard-footer">
           <span >
-            <Link to={`/pet/${pet._id}`} class="info">
+            <Link to={`/pet/${pet._id}`} class="info"> 
               <i
                 class="fa fa-info-circle info"
                 style={{ fontSize: "20px", color: "lightblue" }}

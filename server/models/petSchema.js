@@ -26,6 +26,11 @@ const petSchema = new mongoose.Schema({
     required: "true",
   },
   createdAt: { type: Date, default: Date.now },
+  ownedBy: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    default: 0,
+  },
 });
 //     numsOfReviews: { type: String, default: 0 },
 //         createdAt:{ type: Date, default: Date.now}
