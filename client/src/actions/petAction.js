@@ -12,6 +12,9 @@ import {
   USER_PET_REQUEST,
   USER_PET_FAIL,
   USER_PET_SUCCESS,
+  BREED_INFO_REQUEST,
+  BREED_INFO_SUCCESS,
+  BREED_INFO_FAIL,
 } from "../constants/petConstants";
 import axios from "axios";
 
@@ -56,6 +59,33 @@ export const getPet =
     } catch (error) {
       dispatch({
         type: ALL_PET_FAIL,
+        payload: error,
+      });
+    }
+  };
+
+export const getBreeds =
+  (breed) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: BREED_INFO_REQUEST,
+      });
+      let link = `/Breed`;
+      if (breed) {
+        link = `/Breed?breed=${breed}`;
+      }
+      const { data } = await axios.get(link);
+      if (data) {
+        dispatch({
+          type: BREED_INFO_SUCCESS,
+          payload: data,
+        });
+        return;
+      } else throw new Error();
+    } catch (error) {
+      dispatch({
+        type: BREED_INFO_FAIL,
         payload: error,
       });
     }

@@ -2,7 +2,7 @@
   color: #4d4751;
   font-family: "Raleway", helvetica, sans-serif;
 }
-.img-resize {
+.petimg-resize {
   max-height: 442px;
   object-fit: contain;
   border-radius: 8px;

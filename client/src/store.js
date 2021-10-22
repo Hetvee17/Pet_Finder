@@ -6,6 +6,7 @@ import {
   petDetailReducer,
   userPetReducer,
   petAddReducer,
+  breedReducer,
 } from "./reducer/petReducer";
 //import { userReducer } from "./reducer/userProfReducer";
 
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   petDetails: petDetailReducer,
   pet: petAddReducer,
   userPets: userPetReducer,
+  breeds: breedReducer,
 });
 
 let initialState = {};

@@ -52,11 +52,6 @@ function Navbar() {
             </Link>
           </li>
           <li clasName="nav-item">
-            <Link to="/Adopted" className="nav-links" onClick={closeMobileMenu}>
-              Adopted
-            </Link>
-          </li>
-          <li clasName="nav-item">
             <Link
               to="/Pets/Add"
               className="nav-links"
@@ -100,11 +95,6 @@ function Navbar() {
           <li clasName="nav-item">
             <Link to="/breeds" className="nav-links" onClick={closeMobileMenu}>
               Breeds
-            </Link>
-          </li>
-          <li clasName="nav-item">
-            <Link to="/Adopted" className="nav-links" onClick={closeMobileMenu}>
-              Adopted
             </Link>
           </li>
           <li>

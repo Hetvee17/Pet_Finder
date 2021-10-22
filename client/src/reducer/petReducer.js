@@ -12,9 +12,10 @@ import {
   REGISTER_PET_REQUEST,
   REGISTER_PET_SUCCESS,
   REGISTER_PET_FAIL,
-  ADOPT_PET_REQUEST,
-  ADOPT_PET_FAIL,
-  ADOPT_PET_SUCCESS,
+    BREED_INFO_REQUEST,
+  BREED_INFO_SUCCESS,
+  BREED_INFO_FAIL,
+
 } from "../constants/petConstants";
 
 export const petDetailReducer = (state = { pet: {} }, action) => {
@@ -75,6 +76,36 @@ export const petReducer = (state = { pet: [] }, action) => {
       return state;
   }
 };
+export const breedReducer = (state = { pet: [] }, action) => {
+  console.log(action.type);
+  switch (action.type) {
+    case BREED_INFO_REQUEST:
+      return {
+        loading: true,
+        pets: [],
+      };
+    case BREED_INFO_SUCCESS:
+      return {
+        loading: false,
+        pets: action.payload.petInfos,
+        filteredPetCount: action.payload.filteredPetCount,
+      };
+    case BREED_INFO_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+        // petscount: action.payload.petscount,
+      };
+    case CLEAR_ERR:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
 export const userPetReducer = (state = { pet: [] }, action) => {
   console.log(action.type);
   switch (action.type) {

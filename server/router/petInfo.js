@@ -6,13 +6,12 @@ const PetInfo = require("../models/petInfoSchema");
 
 router.get("/Breed", async (req, res) => {
   try {
-    const petsCount = await PetInfo.countDocuments();
     const apiFeatures = new Apifeatures(PetInfo.find(), req.query)
       .search()
       .filter();
     let petInfos = await apiFeatures.query;
     let filteredPetCount = petInfos.length;
-    console.log(petInfos);
+    console.log(filteredPetCount);
 
     if (petInfos) {
       res.status(200).json({

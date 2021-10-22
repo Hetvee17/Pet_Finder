@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Edit from "./Edit";
-import Upload from "./Upload";
+
 const BUTTON_WRAPPER_STYLES = {
   position: "relative",
   zIndex: 1,
@@ -13,7 +13,7 @@ const OTHER_CONTENT_STYLES = {
 
 function Profile({ userData }) {
   const [editOpen, setEditOpen] = useState(false);
-  const [uploadOpen, setUploadOpen] = useState(false);
+  // const [uploadOpen, setUploadOpen] = useState(false);
 
   return (
     <>
@@ -61,19 +61,16 @@ function Profile({ userData }) {
                       <i className="fa fa-pencil text-white" /> Edit
                     </a>
                   </p>
-                  <p className="mb-5">
-                    <a
+                  {/* <p className="mb-5"> */}
+                    {/* <a
                       onClick={() => {
                         setUploadOpen(true);
                       }}
                       className="text-white mb-5"
-                      //data-toggle="tooltip"
-                      data-placement="bottom"
-                      title="Change profile"
                     >
                       <i className="fa fa-upload mr-1 text-white"></i>Upload
-                    </a>
-                  </p>
+                    </a> */}
+                  {/* </p> */}
                 </div>
                 {/**Profile tab */}
               </div>
@@ -88,12 +85,12 @@ function Profile({ userData }) {
           open={editOpen}
           onClose={() => setEditOpen(false)}
         ></Edit>
-        <Upload
+        {/* <Upload
           user={userData}
           open={uploadOpen}
           onClose={() => setUploadOpen(false)}
         >
-        </Upload>
+        </Upload> */}
       </div>
     </>
   );
