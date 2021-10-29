@@ -68,6 +68,8 @@ export default function DonatePet() {
       window.alert("Thanks for donate :)");
 
       History.push("/UserProfile");
+    } else if (error) {
+      window.alert(error);
     }
   }, [dispatch, isAdded]);
   return (
